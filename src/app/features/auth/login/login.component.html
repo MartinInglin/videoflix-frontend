@@ -1,1 +1,65 @@
-<p>login works!</p>
+<app-header class="header"></app-header>
+
+<div class="background">
+  <div class="curtain"></div>
+</div>
+
+<div class="main-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="login-container">
+      <h1>Log in</h1>
+
+      <div class="form-group">
+        <input
+          type="text"
+          formControlName="email"
+          class="input-field"
+          [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+          placeholder="Email Address"
+        />
+        @if (submitted && f['email'].errors) {
+        <div class="invalid-feedback">
+          @if (f['email'].errors['required']) {
+          <div>Email is required</div>
+          } @if (f['email'].errors['pattern']) {
+          <div>Email is invalid</div>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <input
+          type="password"
+          formControlName="password"
+          class="input-field"
+          [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+          placeholder="Password"
+        />
+        @if (submitted && f['password'].errors) {
+        <div class="invalid-feedback">
+          @if (f['password'].errors['required']) {
+          <div>Password is required</div>
+          }
+        </div>
+        }
+
+        <div class="form-group form-remember-me">
+          <input type="checkbox" class="cursor-pointer"/>
+          <label for="rememberMe" class="remember-me">Remember me</label>
+        </div>
+      </div>
+
+      <div class="form-group submit-button-container">
+        <button type="submit" class="standard-button">Log in</button>
+      </div>
+      <button class="button-no-outline" type="button">Forgot password?</button>
+      <div class="new-user">
+        <span class="legal">New to Videoflix?</span>
+        <button class="button-no-outline" type="button">Sign up now</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-footer class="footer"></app-footer>

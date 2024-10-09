@@ -1,6 +1,10 @@
+@switch (route) { @case ("/login") {
 <div class="header-container">
-    <img src="./../../assets/images/logo.svg" alt="">
-    <button class="standard-button">
-        Log in
-    </button>
+  <img src="./../../assets/images/logo.svg" alt="" />
 </div>
+} @default {
+<div class="header-container">
+  <img src="./../../assets/images/logo.svg" alt="" />
+  <button class="standard-button">Log in</button>
+</div>
+} }
