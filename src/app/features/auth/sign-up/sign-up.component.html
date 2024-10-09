@@ -1,1 +1,90 @@
-<p>sign-up works!</p>
+<app-header class="header"></app-header>
+
+<div class="background">
+  <div class="curtain"></div>
+</div>
+
+<div class="main-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="login-container">
+      <h1>Sign up</h1>
+
+      <div class="form-group">
+        <input
+          type="text"
+          formControlName="email"
+          class="input-field"
+          [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+          placeholder="Email Address"
+        />
+        @if (submitted && f['email'].errors) {
+        <div class="invalid-feedback">
+          @if (f['email'].errors['required']) {
+          <div>Email is required</div>
+          } @if (f['email'].errors['pattern']) {
+          <div>Email is invalid</div>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <input
+          [type]="passwordVisible ? 'text' : 'password'"
+          formControlName="password"
+          class="input-field"
+          [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+          placeholder="Enter a password"
+          #passwordField
+        />
+        @if (submitted && f['password'].errors) {
+        <div class="invalid-feedback">
+          @if (f['password'].errors['required']) {
+          <div>Password is required</div>
+          }
+        </div>
+        }
+
+        <img
+          class="toggle-password"
+          src="assets/icons/visibility.svg"
+          alt="show password"
+          (click)="togglePasswordVisibility()"
+        />
+      </div>
+
+      <div class="form-group">
+        <input
+          [type]="passwordVisible ? 'text' : 'password'"
+          formControlName="confirmPassword"
+          class="input-field"
+          [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }"
+          placeholder="Confirm password"
+          #passwordField
+        />
+        @if (submitted && f['confirmPassword'].errors) {
+        <div class="invalid-feedback">
+          @if (f['confirmPassword'].errors['required']) {
+          <div>Confirm Password is required</div>
+          } @if (f['confirmPassword'].errors['matching']) {
+          <div>Passwords must match</div>
+          }
+        </div>
+        }
+
+        <img
+          class="toggle-password"
+          src="assets/icons/visibility.svg"
+          alt="show password"
+          (click)="togglePasswordVisibility()"
+        />
+      </div>
+
+      <div class="form-group submit-button-container">
+        <button type="submit" class="standard-button">Get started</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-footer class="footer"></app-footer>

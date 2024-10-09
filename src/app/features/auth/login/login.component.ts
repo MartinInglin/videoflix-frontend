@@ -31,6 +31,8 @@ export class LoginComponent {
   });
   submitted = false;
 
+  passwordVisible: boolean = false;
+
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
@@ -65,5 +67,9 @@ export class LoginComponent {
   onReset(): void {
     this.submitted = false;
     this.form.reset();
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible;
   }
 }

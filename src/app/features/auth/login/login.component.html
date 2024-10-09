@@ -30,11 +30,12 @@
 
       <div class="form-group">
         <input
-          type="password"
+          [type]="passwordVisible ? 'text' : 'password'"
           formControlName="password"
           class="input-field"
           [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
           placeholder="Password"
+          #passwordField
         />
         @if (submitted && f['password'].errors) {
         <div class="invalid-feedback">
@@ -44,8 +45,15 @@
         </div>
         }
 
+        <img
+          class="toggle-password"
+          src="assets/icons/visibility.svg"
+          alt="show password"
+          (click)="togglePasswordVisibility()"
+        />
+
         <div class="form-group form-remember-me">
-          <input type="checkbox" class="cursor-pointer"/>
+          <input type="checkbox" class="cursor-pointer" />
           <label for="rememberMe" class="remember-me">Remember me</label>
         </div>
       </div>

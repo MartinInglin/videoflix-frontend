@@ -6,16 +6,14 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
-export class HeaderComponent implements OnInit{
-  router =  inject(Router)
+export class HeaderComponent implements OnInit {
+  router = inject(Router);
 
-  route:string = '/login'
+  route: string = '/login';
 
   ngOnInit(): void {
-    this.route = this.router.url
-    console.log(this.route);
+    this.route = this.router.url;
   }
-
 }
