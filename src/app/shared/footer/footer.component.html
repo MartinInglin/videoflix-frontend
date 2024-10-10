@@ -1,4 +1,11 @@
-<div class="footer-container">
-    <button>Privacy Policy</button>
-    <button>Imprint</button>
+@switch (route) { @case ("/dashboard") {
+<div class="footer-container right">
+  <button>Privacy Policy</button>
+  <button>Imprint</button>
 </div>
+} @default {
+<div class="footer-container">
+  <button>Privacy Policy</button>
+  <button>Imprint</button>
+</div>
+} }

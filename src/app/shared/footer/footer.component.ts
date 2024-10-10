@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -7,6 +8,12 @@ import { Component } from '@angular/core';
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit {
+  router = inject(Router);
 
+  route: string = '/login';
+
+  ngOnInit(): void {
+    this.route = this.router.url;
+  }
 }
