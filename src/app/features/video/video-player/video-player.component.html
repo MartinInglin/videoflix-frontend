@@ -1,0 +1,38 @@
+<div class="video-container" #container>
+  <div class="header">
+    <img src="assets/icons/arrow_back.svg" alt="" />
+
+    <div class="resolution-buttons-container">
+      <button class="resolution-buttons">Mobile</button>
+      <button class="resolution-buttons">SD</button>
+      <button class="resolution-buttons">HD</button>
+      <button class="resolution-buttons">UHD</button>
+    </div>
+
+    <img src="assets/images/logo_image.svg" alt="" />
+  </div>
+
+  <app-vjs-player
+    [ngStyle]="{ width: playerWidth }"
+    #videoPlayer
+    class="video-player"
+    [options]="{
+      fluid: true,
+      autoplay: true,
+      controls: true,
+      sources: [
+        { src: './../../../../assets/videos/teaser.mp4', type: 'video/mp4', label: 'SD'}
+      ],
+    }"
+  ></app-vjs-player>
+
+  <div class="footer">
+    <button class="forward-rewind-button">
+      <img src="assets/icons/replay_10.svg" alt="" />
+    </button>
+    <span class="clip-title">Majestic whales</span>
+    <button class="forward-rewind-button">
+      <img src="assets/icons/forward_10.svg" alt="" />
+    </button>
+  </div>
+</div>
