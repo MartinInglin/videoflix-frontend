@@ -122,6 +122,13 @@ p {
   width: 100%;
 }
 
+.error-toast {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  max-width: 80vw;
+}
+
 // scrollbar
  /* width */
  ::-webkit-scrollbar {

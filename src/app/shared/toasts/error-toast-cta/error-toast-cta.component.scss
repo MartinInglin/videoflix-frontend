@@ -1,0 +1,26 @@
+@import "./../../../../styles.scss";
+
+.error-container {
+    display: flex;
+    align-items: center;
+    background-color: $purple;
+    border-left: 20px solid $error;
+    border-radius: 20px;
+    padding: 24px 32px 24px 8px;
+    gap: 16px;
+}
+
+.divider-line {
+    height: 32px;
+    width: 1px;
+    background-color: white;
+}
+
+.background-white {
+    background-color: white;
+    color: $purple;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

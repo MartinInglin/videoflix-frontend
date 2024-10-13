@@ -1,12 +1,16 @@
 .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 96px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 96px;
 }
 
 .standard-button {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.transparent {
+  background-color: transparent;
 }

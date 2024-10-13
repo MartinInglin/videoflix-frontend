@@ -5,10 +5,8 @@ import { FooterComponent } from '../../shared/footer/footer.component';
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent],
+  imports: [HeaderComponent, FooterComponent ],
   templateUrl: './landing-page.component.html',
-  styleUrl: './landing-page.component.scss'
+  styleUrl: './landing-page.component.scss',
 })
-export class LandingPageComponent {
-
-}
+export class LandingPageComponent {}
