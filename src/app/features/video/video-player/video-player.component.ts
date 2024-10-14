@@ -1,11 +1,12 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { VjsPlayerComponent } from './vjs-player/vjs-player.component';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-video-player',
   standalone: true,
-  imports: [VjsPlayerComponent, CommonModule],
+  imports: [VjsPlayerComponent, CommonModule, RouterModule],
   templateUrl: './video-player.component.html',
   styleUrl: './video-player.component.scss',
 })
@@ -26,7 +27,7 @@ export class VideoPlayerComponent {
 
   adjustPlayerSize() {
     const containerWidth = this.container.nativeElement.offsetWidth;
-    const containerHeight = this.container.nativeElement.offsetHeight -160;
+    const containerHeight = this.container.nativeElement.offsetHeight - 160;
     const aspectRatio = 16 / 9;
 
     if (containerWidth / containerHeight > aspectRatio) {

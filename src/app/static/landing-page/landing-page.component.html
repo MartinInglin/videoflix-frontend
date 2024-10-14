@@ -1,22 +1,20 @@
-<app-header class="header"></app-header>
+<app-header class="header" (redirectLogin)="redirectLogin()"></app-header>
 
-<div class="background">
+<div class="background-black"></div>
+
+<div class="background" [@backgroundFadeTrigger]="backgroundState">
   <div class="curtain"></div>
 </div>
 
 <div class="main-container">
-  <h1>Movies, TV shows, and more</h1>
-  <h3>Watch whenever you want wherever you want</h3>
-  <h4>Enter your email to create or restart your subcription.</h4>
-  <div class="sign-up">
-    <input
-      type="email"
-      name=""
-      id=""
-      class="input-email"
-      placeholder="Email Address"
-    />
-    <button class="standard-button">Sign Up ></button>
+  <h1 [@hideShowTrigger]="state">Movies, TV shows, and more</h1>
+  <h3 [@hideShowTrigger]="state">Watch whenever you want wherever you want</h3>
+  <h4 [@hideShowTrigger]="state">
+    Enter your email to create or restart your subcription.
+  </h4>
+  <div class="sign-up" [@hideShowTrigger]="state">
+    <input type="email" class="input-email" placeholder="Email Address" />
+    <button class="standard-button" (click)="redirectLogin()">Sign Up ></button>
   </div>
 </div>
 

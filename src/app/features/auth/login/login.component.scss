@@ -1,12 +1,25 @@
-@import './../../../../styles.scss';
+@import "./../../../../styles.scss";
 
-.background {
+.background-black {
   position: absolute;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-image: url("./../../../../assets/images/login_page.jpg");
+  background-color: black;
+  z-index: -2;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 1440px;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("./../../../../assets/images/login_page-min.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -23,7 +36,6 @@
 .main-container {
   height: 100vh;
   width: 100vw;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,7 +64,7 @@ h1 {
 }
 
 .form-remember-me {
-  margin-top: 16px;
+  margin-top: 20px;
 }
 
 .remember-me {
@@ -74,8 +86,6 @@ h1 {
   background-color: transparent;
   border: none;
   cursor: pointer;
-
-
 }
 
 .button-no-outline:focus {
@@ -89,3 +99,10 @@ h1 {
   gap: 24px;
 }
 
+@media (max-width: 769px) {
+  .login-container {
+    width: 96%;
+    padding: 43px 24px;
+    box-sizing: border-box;
+  }
+}

@@ -47,6 +47,7 @@ p {
   margin: 0;
   font-weight: 400;
   font-size: 16px;
+  line-height: 21px;
 }
 
 .legal {
@@ -59,6 +60,13 @@ p {
   cursor: pointer;
 }
 
+.centered {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .standard-button {
   border-radius: 40px;
   border: none;
@@ -68,6 +76,20 @@ p {
   font-size: 18px;
   padding: 12px 24px;
   cursor: pointer;
+  transition: all 125ms ease-in-out;
+
+  &:hover {
+    box-shadow: 0px 0px 8px 4px lightblue;
+    transition: all 125ms ease-in-out;
+  }
+}
+
+.button-disabled {
+  opacity: 0.5;
+
+  &:hover {
+    box-shadow: none;
+  }
 }
 
 .input-field {
@@ -82,17 +104,17 @@ p {
   color: black;
   box-sizing: border-box;
   transition: all 125ms ease-in-out;
-}
 
-.input-field::placeholder {
-  font-weight: 400;
-  font-size: 18px;
-  color: $purple;
-}
+  &::placeholder {
+    font-weight: 400;
+    font-size: 18px;
+    color: $purple;
+  }
 
-.input-field:focus {
-  outline: 1px solid black;
-  transition: all 125ms ease-in-out;
+  &:focus {
+    outline: 1px solid black;
+    transition: all 125ms ease-in-out;
+  }
 }
 
 .form-group {
@@ -113,6 +135,7 @@ p {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 1;
 }
 
 .footer {
@@ -129,9 +152,46 @@ p {
   max-width: 80vw;
 }
 
-// scrollbar
- /* width */
- ::-webkit-scrollbar {
+// Media Queries
+@media (max-width: 769px) {
+  .title {
+    font-size: 64px;
+  }
+  h1 {
+    font-size: 40px;
+  }
+  h3 {
+    font-size: 20px;
+  }
+  h4 {
+    font-size: 16px;
+  }
+  .legal {
+    font-size: 16px;
+  }
+  .input-field {
+    font-size: 16px;
+
+    &::placeholder {
+      font-size: 16px;
+    }
+  }
+  .form-group {
+    .invalid-feedback {
+      font-size: 12px;
+    }
+  }
+  .error-toast {
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    max-width: unset;
+  }
+}
+
+// Scrollbar
+/* width */
+::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
@@ -146,7 +206,7 @@ p {
 ::-webkit-scrollbar-thumb {
   background: rgb(130, 130, 130);
   border-radius: 10px;
-} 
+}
 
 // fonts
 /* dm-sans-100 - latin */

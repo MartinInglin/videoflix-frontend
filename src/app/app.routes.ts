@@ -8,15 +8,17 @@ import { DashboardComponent } from './features/video/dashboard/dashboard.compone
 import { VideoPlayerComponent } from './features/video/video-player/video-player.component';
 import { ImprintComponent } from './static/imprint/imprint.component';
 import { PrivacyPolicyComponent } from './static/privacy-policy/privacy-policy.component';
+import { HeroComponent } from './features/video/hero/hero.component';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'signUp', component: SignUpComponent },
-  { path: 'forgotPassword', component: ForgotPasswordComponent },
-  { path: 'resetPassword', component: ResetPasswordComponent },
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'videoPlayer', component: VideoPlayerComponent },
+  { path: 'hero', component: HeroComponent },
+  { path: 'video-player', component: VideoPlayerComponent },
   { path: 'imprint', component: ImprintComponent },
-  { path: 'privacyPolicy', component: PrivacyPolicyComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
 ];

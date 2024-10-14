@@ -1,12 +1,14 @@
-<app-header class="header"></app-header>
+<app-header class="header" (redirectLogin)="redirect('/login')"></app-header>
 
-<div class="background">
+<div class="background-black"></div>
+
+<div class="background" [@backgroundFadeTrigger]="backgroundState">
   <div class="curtain"></div>
 </div>
 
-<div class="main-container">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="sign-up-container">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="main-container">
+    <div class="sign-up-container" [@hideShowTrigger]="state">
       <h1>Sign Up</h1>
 
       <div class="form-group">
@@ -41,6 +43,10 @@
         <div class="invalid-feedback">
           @if (f['password'].errors['required']) {
           <div>Password is required</div>
+          } @if (f['password'].errors['minlength']) {
+          <div>Password must be at least 8 characters</div>
+          } @if (f['password'].errors['maxlength']) {
+          <div>Password must be no longer than 40 characters</div>
           }
         </div>
         }
@@ -81,10 +87,16 @@
       </div>
 
       <div class="form-group submit-button-container">
-        <button type="submit" class="standard-button">Get Started</button>
+        <button
+          type="submit"
+          class="standard-button"
+          [ngClass]="{ 'button-disabled': formEmpty }"
+        >
+          Get Started
+        </button>
       </div>
     </div>
-  </form>
-</div>
+  </div>
+</form>
 
 <app-footer class="footer"></app-footer>

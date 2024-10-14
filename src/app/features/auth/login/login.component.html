@@ -1,12 +1,14 @@
 <app-header class="header"></app-header>
 
-<div class="background">
+<div class="background-black"></div>
+
+<div class="background" [@backgroundFadeTrigger]="backgroundState">
   <div class="curtain"></div>
 </div>
 
-<div class="main-container">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="login-container">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="main-container">
+    <div class="login-container" [@hideShowTrigger]="state">
       <h1>Login</h1>
 
       <div class="form-group">
@@ -59,15 +61,33 @@
       </div>
 
       <div class="form-group submit-button-container">
-        <button type="submit" class="standard-button">Login</button>
+        <button
+          type="submit"
+          class="standard-button"
+          [ngClass]="{ 'button-disabled': formEmpty }"
+        >
+          Login
+        </button>
       </div>
-      <button class="button-no-outline" type="button">Forgot password?</button>
+      <button
+        class="button-no-outline"
+        type="button"
+        (click)="redirect('/forgot-password')"
+      >
+        Forgot password?
+      </button>
       <div class="new-user">
         <span class="legal">New to Videoflix?</span>
-        <button class="button-no-outline" type="button">Sign up now</button>
+        <button
+          class="button-no-outline"
+          type="button"
+          (click)="redirect('/sign-up')"
+        >
+          Sign up now
+        </button>
       </div>
     </div>
-  </form>
-</div>
+  </div>
+</form>
 
 <app-footer class="footer"></app-footer>

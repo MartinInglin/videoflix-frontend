@@ -1,8 +1,12 @@
-<app-header class="header"></app-header>
+<app-header class="header" (redirectLogin)="logout()"></app-header>
 
 <div class="background-black"></div>
 
-<div class="background">
+<div
+  class="background"
+  [@hideShowTeaser]="teaserState"
+  [@zoomThumbnailTrigger]="zoomState"
+>
   <video
     autoplay
     class="hero-video"
@@ -11,74 +15,98 @@
   <div class="curtain"></div>
 </div>
 
-<div class="main-container">
-  <div class="hero">
-    <div class="title">Breakout</div>
-    <p>
-      In a high-security prison, a wrongly convicted man formulates a meticulous
-      plan to break out and prove his innocence. He must navigate a web of
-      alliances and betrayals to reclaim his freedom and expose the truth.
-    </p>
-    <button class="standard-button">
-      <img src="assets/icons/play_arrow.svg" alt="" /> Play
-    </button>
-  </div>
-
-  <div class="rows">
-    <div class="row">
-      <span class="subtitle">New on Videoflix</span>
-      <div class="thumbnails">
-        <img
-          src="./../../../../assets/thumbnails/rhythms_of_friendship.jpg"
-          alt=""
-        />
-        <img src="./../../../../assets/thumbnails/majestic_whales.jpg" alt="" />
-        <img src="./../../../../assets/thumbnails/majestic_whales.jpg" alt="" />
-        <img src="./../../../../assets/thumbnails/majestic_whales.jpg" alt="" />
-        <img src="./../../../../assets/thumbnails/majestic_whales.jpg" alt="" />
-        <img src="./../../../../assets/thumbnails/majestic_whales.jpg" alt="" />
-      </div>
+<div class="centered">
+  <div class="main-container">
+    <div class="hero">
+      <div class="title" [@hideShowTrigger]="state">Breakout</div>
+      <p [@hideShowTrigger]="state">
+        In a high-security prison, a wrongly convicted man formulates a
+        meticulous plan to break out and prove his innocence. He must navigate a
+        web of alliances and betrayals to reclaim his freedom and expose the
+        truth.
+      </p>
+      <button
+        class="standard-button"
+        [@hideShowTrigger]="state"
+        (click)="openVideo('/video-player')"
+      >
+        <img src="assets/icons/play_arrow.svg" alt="" /> Play
+      </button>
     </div>
 
-    <div class="row">
-      <span class="subtitle">Documentary</span>
-      <div class="thumbnails">
-        <img
-          src="./../../../../assets/thumbnails/rhythms_of_friendship.jpg"
-          alt=""
-        />
-        <img
-          src="./../../../../assets/thumbnails/rhythms_of_friendship.jpg"
-          alt=""
-        />
+    <div class="rows">
+      <div class="row">
+        <span class="subtitle">New on Videoflix</span>
+        <div class="thumbnails">
+          <img
+            src="./../../../../assets/thumbnails/rhythms_of_friendship.jpg"
+            alt=""
+            [@showThumbnailTrigger]="thumbnailState"
+            (click)="showHero()"
+          />
+          <img
+            src="./../../../../assets/thumbnails/hate_you-min.jpg"
+            alt=""
+          />
+          <img
+            src="./../../../../assets/thumbnails/majestic_whales-min.jpg"
+            alt=""
+          />
+          <img
+            src="./../../../../assets/thumbnails/majestic_whales-min.jpg"
+            alt=""
+          />
+          <img
+            src="./../../../../assets/thumbnails/majestic_whales-min.jpg"
+            alt=""
+          />
+          <img
+            src="./../../../../assets/thumbnails/majestic_whales-min.jpg"
+            alt=""
+          />
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <span class="subtitle">Drama</span>
-      <div class="thumbnails">
-        <img
-          src="./../../../../assets/thumbnails/rhythms_of_friendship.jpg"
-          alt=""
-        />
-        <img
-          src="./../../../../assets/thumbnails/rhythms_of_friendship.jpg"
-          alt=""
-        />
+      <div class="row">
+        <span class="subtitle">Documentary</span>
+        <div class="thumbnails">
+          <img
+            src="./../../../../assets/thumbnails/rhythms_of_friendship-min.jpg"
+            alt=""
+          />
+          <img
+            src="./../../../../assets/thumbnails/rhythms_of_friendship-min.jpg"
+            alt=""
+          />
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <span class="subtitle">Romance</span>
-      <div class="thumbnails">
-        <img
-          src="./../../../../assets/thumbnails/rhythms_of_friendship.jpg"
-          alt=""
-        />
-        <img
-          src="./../../../../assets/thumbnails/rhythms_of_friendship.jpg"
-          alt=""
-        />
+      <div class="row">
+        <span class="subtitle">Drama</span>
+        <div class="thumbnails">
+          <img
+            src="./../../../../assets/thumbnails/rhythms_of_friendship-min.jpg"
+            alt=""
+          />
+          <img
+            src="./../../../../assets/thumbnails/rhythms_of_friendship-min.jpg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="subtitle">Romance</span>
+        <div class="thumbnails">
+          <img
+            src="./../../../../assets/thumbnails/rhythms_of_friendship-min.jpg"
+            alt=""
+          />
+          <img
+            src="./../../../../assets/thumbnails/rhythms_of_friendship-min.jpg"
+            alt=""
+          />
+        </div>
       </div>
     </div>
   </div>

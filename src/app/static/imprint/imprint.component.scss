@@ -1,5 +1,11 @@
+::ng-deep body {
+    background-color: black;
+}
+
 .imprint-component {
   padding: 24px 96px;
+  width: 100%;
+  max-width: 1440px;
 
   h2 {
     margin-bottom: 12px;

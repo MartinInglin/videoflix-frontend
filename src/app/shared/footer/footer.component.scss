@@ -1,21 +1,23 @@
 .footer-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 48px;
-    padding-bottom: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  padding-bottom: 48px;
+  width: 100%;
+  max-width: 1248px;
 
-    button {
-        color: white;
-        font-weight: 500;
-        font-size: 18px;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-    }
+  button {
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
 }
 
 .right {
-    justify-content: flex-end;
-    padding-right: 96px;
+  justify-content: flex-end;
+  padding-right: 96px;
 }

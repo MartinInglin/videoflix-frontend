@@ -1,15 +1,29 @@
 <div class="video-container" #container>
   <div class="header">
-    <img src="assets/icons/arrow_back.svg" alt="" />
+    <div class="header-desktop">
+      <img
+        src="assets/icons/arrow_back.svg"
+        alt=""
+        routerLink="/dashboard"
+        class="cursor-pointer"
+      />
 
-    <div class="resolution-buttons-container">
+      <div class="resolution-buttons-container">
+        <button class="resolution-buttons">Mobile</button>
+        <button class="resolution-buttons">SD</button>
+        <button class="resolution-buttons">HD</button>
+        <button class="resolution-buttons">UHD</button>
+      </div>
+
+      <img src="assets/images/logo_image.svg" alt="" />
+    </div>
+
+    <div class="resolution-buttons-container-mobile">
       <button class="resolution-buttons">Mobile</button>
       <button class="resolution-buttons">SD</button>
       <button class="resolution-buttons">HD</button>
       <button class="resolution-buttons">UHD</button>
     </div>
-
-    <img src="assets/images/logo_image.svg" alt="" />
   </div>
 
   <app-vjs-player
@@ -18,7 +32,7 @@
     class="video-player"
     [options]="{
       fluid: true,
-      autoplay: true,
+      autoplay: false,
       controls: true,
       sources: [
         { src: './../../../../assets/videos/teaser.mp4', type: 'video/mp4', label: 'SD'}

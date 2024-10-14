@@ -1,0 +1,33 @@
+<app-header class="header" (redirectDashboard)="redirectDashobard()"></app-header>
+
+<div class="background-black"></div>
+
+<div class="background" [@hideShowTeaser]="teaserState">
+  <video
+    autoplay
+    class="hero-video"
+    src="./../../../../assets/videos/teaser.mp4"
+  ></video>
+  <div class="curtain"></div>
+</div>
+
+<div class="centered">
+  <div class="main-container" [ngStyle]="{'overflow': overflowMainContainer}">
+    <div class="hero">
+      <div class="title" [@hideShowTrigger]="state">Breakout</div>
+      <p [@hideShowTrigger]="state">
+        In a high-security prison, a wrongly convicted man formulates a
+        meticulous plan to break out and prove his innocence. He must navigate a
+        web of alliances and betrayals to reclaim his freedom and expose the
+        truth.
+      </p>
+      <button
+        class="standard-button"
+        [@hideShowTrigger]="state"
+        (click)="openVideo('/video-player')"
+      >
+        <img src="assets/icons/play_arrow.svg" alt="" /> Play
+      </button>
+    </div>
+  </div>
+</div>

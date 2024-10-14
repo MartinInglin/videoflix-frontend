@@ -15,6 +15,9 @@
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 1440px;
   width: 100vw;
   z-index: -1;
 
@@ -35,6 +38,7 @@
 .main-container {
   height: 100vh;
   width: 100vw;
+  max-width: 1440px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -64,18 +68,10 @@
   background: linear-gradient(transparent 10%, black);
 }
 
-
 .row {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 48px;
-  overflow-x: hidden;
-}
-
-.row:hover {
-  overflow-x: scroll;
-  margin-bottom: 40px;
 }
 
 .subtitle {
@@ -87,9 +83,49 @@
 .thumbnails {
   display: flex;
   gap: 16px;
+  margin-bottom: 48px;
+  overflow-x: hidden;
 
   img {
     width: 213px;
+    cursor: pointer;
+    background-color: white;
+  }
+
+  &:hover {
+    overflow-x: scroll;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 769px) {
+  .background,
+  .hero {
+    display: none;
+  }
+
+  .main-container {
+    padding-top: 148px;
+    padding-left: 16px;
+  }
+
+  .thumbnails {
+    overflow-x: scroll;
+    margin-bottom: 40px;
+  }
+
+  .footer {
+    display: none;
+  }
+
+  .subtitle {
+    font-size: 20px;
+  }
+
+  .thumbnails {
+    img {
+      width: 170px;
+    }
   }
 }
 
