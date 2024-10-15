@@ -9,11 +9,13 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { LandingPageService } from '../../services/landing-page.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent],
+  imports: [HeaderComponent, FooterComponent, FormsModule],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
   animations: [
@@ -44,9 +46,11 @@ import {
 })
 export class LandingPageComponent {
   router = inject(Router);
+  landingPageService = inject(LandingPageService);
 
   state = 'hidden-bottom';
   backgroundState = 'background-fade-out';
+  inputData = '';
 
   ngAfterViewInit() {
     document.body.style.overflow = 'hidden';
@@ -62,6 +66,7 @@ export class LandingPageComponent {
   redirectLogin() {
     this.state = 'hidden-left';
     this.backgroundState = 'background-fade-out';
+    this.landingPageService.setInputData(this.inputData);
     setTimeout(() => {
       this.router.navigate(['/login']);
     }, 400);

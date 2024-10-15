@@ -18,6 +18,10 @@ import {
   transition,
 } from '@angular/animations';
 import { Router } from '@angular/router';
+import { LandingPageService } from '../../../services/landing-page.service';
+import { take } from 'rxjs';
+import { ToastService } from '../../../services/toast.service';
+import { ToastCTA } from '../../../interfaces/toast-cta';
 
 @Component({
   selector: 'app-login',
@@ -59,6 +63,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   router = inject(Router);
+  landingPageService = inject(LandingPageService);
+  toastService = inject(ToastService);
 
   form: FormGroup = new FormGroup({
     email: new FormControl(''),
@@ -73,6 +79,11 @@ export class LoginComponent {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
+    this.buildForm();
+    this.setValueEmailField();
+  }
+
+  buildForm() {
     this.form = this.formBuilder.group({
       email: [
         '',
@@ -95,13 +106,21 @@ export class LoginComponent {
     return this.form.invalid || this.form.pristine;
   }
 
+  setValueEmailField() {
+    this.landingPageService.inputData
+      .pipe(take(1))
+      .subscribe((inputDataLandingPage: string) => {
+        this.form.get('email')?.setValue(inputDataLandingPage);
+      });
+  }
+
   onSubmit(): void {
     this.submitted = true;
 
-    if (this.form.invalid) {
-      return;
-    }
-    this.redirect("/dashboard");
+    // if (this.form.invalid) {
+    //   return;
+    // }
+    this.redirect('/dashboard');
   }
 
   onReset(): void {
@@ -125,10 +144,16 @@ export class LoginComponent {
   }
 
   redirect(target: string) {
-    this.state = 'hidden-left';
-    this.backgroundState = 'background-fade-out';
-    setTimeout(() => {
-      this.router.navigate([`/${target}`]);
-    }, 700);
+    const toastCTAdata: ToastCTA = {
+      message: 'Please verify your email address first.',
+      textButton: 'Resend email',
+      action: 'resendVerificationEmail'
+    }
+    this.toastService.showToastCTA(toastCTAdata);
+    // this.state = 'hidden-left';
+    // this.backgroundState = 'background-fade-out';
+    // setTimeout(() => {
+    //   this.router.navigate([`/${target}`]);
+    // }, 700);
   }
 }

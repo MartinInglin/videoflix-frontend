@@ -13,7 +13,7 @@
     Enter your email to create or restart your subcription.
   </h4>
   <div class="sign-up" [@hideShowTrigger]="state">
-    <input type="email" class="input-email" placeholder="Email Address" />
+    <input type="email" class="input-email" placeholder="Email Address" [(ngModel)]="inputData"/>
     <button class="standard-button" (click)="redirectLogin()">Sign Up ></button>
   </div>
 </div>
