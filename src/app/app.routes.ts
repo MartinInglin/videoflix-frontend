@@ -9,6 +9,7 @@ import { VideoPlayerComponent } from './features/video/video-player/video-player
 import { ImprintComponent } from './static/imprint/imprint.component';
 import { PrivacyPolicyComponent } from './static/privacy-policy/privacy-policy.component';
 import { HeroComponent } from './features/video/hero/hero.component';
+import { VerificationComponent } from './features/auth/verification/verification.component';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'verification/:userId/:token', component: VerificationComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'hero', component: HeroComponent },
   { path: 'video-player', component: VideoPlayerComponent },
