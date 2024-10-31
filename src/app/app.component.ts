@@ -80,7 +80,7 @@ export class AppComponent {
     this.errorToastState = 'hidden';
     setTimeout(() => {
       this.isVisible = false;
-    }, 300);
+    }, 0);
   }
 
   showErrorToastCTA() {
@@ -94,6 +94,6 @@ export class AppComponent {
     this.errorToastStateCTA = 'hidden';
     setTimeout(() => {
       this.isVisibleCTA = false;
-    }, 300);
+    }, 0);
   }
 }

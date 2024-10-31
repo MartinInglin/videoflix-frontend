@@ -15,7 +15,7 @@ export class ErrorToastCTAComponent {
   toastData: ToastCTA = {
     message: '',
     textButton: '',
-    action: '',
+    action: () => {},
   };
   isVisible = 'hidden';
 
@@ -30,12 +30,4 @@ export class ErrorToastCTAComponent {
   closeToast() {
     this.toastService.hideToast();
   }
-
-  resendVerificationEmail() {
-    console.log('Email sent');
-  }
-
-  functionMap: { [key: string]: () => void } = {
-    resendVerificationEmail: () => this.resendVerificationEmail(),
-  };
 }

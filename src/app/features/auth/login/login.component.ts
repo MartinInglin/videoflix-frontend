@@ -22,6 +22,7 @@ import { LandingPageService } from '../../../services/landing-page.service';
 import { take } from 'rxjs';
 import { ToastService } from '../../../services/toast.service';
 import { ToastCTA } from '../../../interfaces/toast-cta';
+import { VerificationService } from '../../../services/verification.service';
 
 @Component({
   selector: 'app-login',
@@ -65,6 +66,7 @@ export class LoginComponent {
   router = inject(Router);
   landingPageService = inject(LandingPageService);
   toastService = inject(ToastService);
+  verificationService = inject(VerificationService)
 
   form: FormGroup = new FormGroup({
     email: new FormControl(''),
@@ -147,7 +149,7 @@ export class LoginComponent {
     const toastCTAdata: ToastCTA = {
       message: 'Please verify your email address first.',
       textButton: 'Resend email',
-      action: 'resendVerificationEmail'
+      action: this.verificationService.resendVerificationEmail.bind(this.verificationService),
     }
     this.toastService.showToastCTA(toastCTAdata);
     // this.state = 'hidden-left';

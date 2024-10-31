@@ -4,7 +4,7 @@
     <p>{{ toastData.message }}</p>
     <button
       class="standard-button background-white button-desktop"
-      (click)="functionMap[toastData.action]()"
+      (click)="toastData.action()"
     >
       {{ toastData.textButton }}
     </button>
@@ -18,7 +18,7 @@
   </div>
   <button
     class="standard-button background-white button-mobile"
-    (click)="functionMap[toastData.action]()"
+    (click)="toastData.action()"
   >
     {{ toastData.textButton }}
   </button>

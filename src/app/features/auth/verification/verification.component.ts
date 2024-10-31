@@ -6,11 +6,14 @@ import {
   animate,
   transition,
 } from '@angular/animations';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from '../../../shared/header/header.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { VerificationService } from '../../../services/verification.service';
+import { ToastService } from '../../../services/toast.service';
+import { ToastCTA } from '../../../interfaces/toast-cta';
 
 @Component({
   selector: 'app-verification',
@@ -47,12 +50,28 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class VerificationComponent {
   router = inject(Router);
+  route = inject(ActivatedRoute);
+  verificationService = inject(VerificationService);
+  toastService = inject(ToastService);
 
   state = 'hidden-left';
   backgroundState = 'background-fade-out';
 
-  onSubmit(): void {
-    this.redirect('/login');
+  async ngOnInit(): Promise<void> {
+    const userId = this.route.snapshot.paramMap.get('userId');
+    const token = this.route.snapshot.paramMap.get('token');
+
+    if (userId && token) {
+      const isVerified = await this.verificationService.verificateEmail(
+        userId,
+        token
+      );
+      if (isVerified) {
+        this.showSuccess();
+      } else {
+        this.showErrorToast();
+      }
+    }
   }
 
   redirect(target: string) {
@@ -63,7 +82,7 @@ export class VerificationComponent {
     }, 400);
   }
 
-  ngAfterViewInit() {
+  showSuccess() {
     document.body.style.overflow = 'hidden';
     setTimeout(() => {
       this.state = 'shown';
@@ -72,5 +91,16 @@ export class VerificationComponent {
     setTimeout(() => {
       document.body.style.overflow = 'auto';
     }, 1000);
+  }
+
+  showErrorToast() {
+    const toastContent: ToastCTA = {
+      message: 'Sorry, something went wrong.',
+      textButton: 'Resend email',
+      action: this.verificationService.resendVerificationEmail.bind(
+        this.verificationService
+      ),
+    };
+    this.toastService.showToastCTA(toastContent);
   }
 }
