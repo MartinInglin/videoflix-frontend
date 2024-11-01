@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +11,13 @@ import { lastValueFrom } from 'rxjs';
 export class VerificationService {
   http = inject(HttpClient);
   route = inject(ActivatedRoute);
+  toastService = inject(ToastService)
 
   constructor() {}
 
-  async verificateEmail(userId: string, token: string): Promise<boolean> {
+  async verificateEmail(token: string): Promise<boolean> {
     const url = environment.baseUrl + '/verification/';
-    const body = { userId, token };
+    const body = { token };
 
     try {
       const response = await lastValueFrom(this.http.patch(url, body));
@@ -24,8 +26,20 @@ export class VerificationService {
       return false;
     }
   }
-  
-  resendVerificationEmail() {
-    
+
+  async resendVerificationEmail(token: string): Promise<boolean> {
+    const url = environment.baseUrl + '/resend_verifiction/';
+    const body = { token };
+
+    try {
+      const response = await lastValueFrom(this.http.post(url, body));
+      this.toastService.hideToast();
+      this.toastService.showToast('Email has been sent.')
+      return true
+    } catch (error) {
+      this.toastService.hideToast();
+      this.toastService.showToast('An error occured. Please contact our support.')
+      return false;
+    }
   }
 }

@@ -123,6 +123,13 @@ export class LoginComponent {
     //   return;
     // }
     this.redirect('/dashboard');
+
+    const toastCTAdata: ToastCTA = {
+      message: 'Please verify your email address first.',
+      textButton: 'Resend email',
+      action: this.verificationService.resendVerificationEmail.bind(this.verificationService),
+    }
+    this.toastService.showToastCTA(toastCTAdata);
   }
 
   onReset(): void {
@@ -146,16 +153,10 @@ export class LoginComponent {
   }
 
   redirect(target: string) {
-    const toastCTAdata: ToastCTA = {
-      message: 'Please verify your email address first.',
-      textButton: 'Resend email',
-      action: this.verificationService.resendVerificationEmail.bind(this.verificationService),
-    }
-    this.toastService.showToastCTA(toastCTAdata);
-    // this.state = 'hidden-left';
-    // this.backgroundState = 'background-fade-out';
-    // setTimeout(() => {
-    //   this.router.navigate([`/${target}`]);
-    // }, 700);
+    this.state = 'hidden-left';
+    this.backgroundState = 'background-fade-out';
+    setTimeout(() => {
+      this.router.navigate([`/${target}`]);
+    }, 700);
   }
 }

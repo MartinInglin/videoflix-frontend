@@ -58,14 +58,11 @@ export class VerificationComponent {
   backgroundState = 'background-fade-out';
 
   async ngOnInit(): Promise<void> {
-    const userId = this.route.snapshot.paramMap.get('userId');
+    debugger;
     const token = this.route.snapshot.paramMap.get('token');
 
-    if (userId && token) {
-      const isVerified = await this.verificationService.verificateEmail(
-        userId,
-        token
-      );
+    if (token) {
+      const isVerified = await this.verificationService.verificateEmail(token);
       if (isVerified) {
         this.showSuccess();
       } else {
@@ -94,13 +91,17 @@ export class VerificationComponent {
   }
 
   showErrorToast() {
-    const toastContent: ToastCTA = {
-      message: 'Sorry, something went wrong.',
-      textButton: 'Resend email',
-      action: this.verificationService.resendVerificationEmail.bind(
-        this.verificationService
-      ),
-    };
-    this.toastService.showToastCTA(toastContent);
+    const token = this.route.snapshot.paramMap.get('token');
+    if (token) {
+      const toastContent: ToastCTA = {
+        message: 'Sorry, something went wrong.',
+        textButton: 'Resend email',
+        action: this.verificationService.resendVerificationEmail.bind(
+          this.verificationService,
+          token
+        ),
+      };
+      this.toastService.showToastCTA(toastContent);
+    }
   }
 }

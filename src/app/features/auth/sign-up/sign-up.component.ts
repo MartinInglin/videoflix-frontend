@@ -19,6 +19,7 @@ import {
   transition,
 } from '@angular/animations';
 import { Router } from '@angular/router';
+import { SignUpService } from '../../../services/sign-up.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -59,6 +60,7 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent {
   router = inject(Router);
+  signUpService = inject(SignUpService);
 
   form: FormGroup = new FormGroup({
     email: new FormControl(''),
@@ -108,13 +110,15 @@ export class SignUpComponent {
     return this.form.invalid || this.form.pristine;
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.submitted = true;
+    const email = this.form.value.email
+    const password = this.form.value.password
 
     if (this.form.invalid) {
       return;
     }
-
+    await this.signUpService.signUp(email, password)
     this.redirect('/login');
   }
 

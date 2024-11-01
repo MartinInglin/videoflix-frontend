@@ -1,5 +1,5 @@
 export interface ToastCTA {
   message: string;
   textButton: string;
-  action: () => void;
+  action: (param?: any) => void;
 }
