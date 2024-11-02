@@ -38,9 +38,9 @@ export class AppComponent {
   displayToast = false;
   isVisible = false;
   errorToastState = 'hidden';
-  displayToastCTA = false
+  displayToastCTA = false;
   isVisibleCTA = false;
-  errorToastStateCTA = 'hidden'
+  errorToastStateCTA = 'hidden';
 
   ngOnInit(): void {
     this.subscribeToast();
@@ -74,7 +74,6 @@ export class AppComponent {
     setTimeout(() => {
       this.errorToastState = 'visible';
     }, 0);
-
   }
 
   hideErrorToast() {
@@ -91,8 +90,6 @@ export class AppComponent {
 
   hideErrorToastCTA() {
     this.errorToastStateCTA = 'hidden';
-    setTimeout(() => {
-      this.isVisibleCTA = false;
-    }, 0);
+    this.isVisibleCTA = false;
   }
 }

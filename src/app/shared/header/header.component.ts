@@ -1,6 +1,7 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Location } from '@angular/common';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,7 @@ import { Location } from '@angular/common';
 export class HeaderComponent implements OnInit {
   router = inject(Router);
   location = inject(Location);
+  authenticationService = inject(AuthenticationService);
 
   route: string = '/login';
 
@@ -26,7 +28,14 @@ export class HeaderComponent implements OnInit {
     this.location.back();
   }
 
-  sendRedirectLogin() {
+  async logout() {
+    let success = await this.authenticationService.logout();
+    if (success) {
+      this.sendRedirectLogin()
+    }
+  }
+
+  async sendRedirectLogin() {
     this.redirectLogin.emit();
   }
 

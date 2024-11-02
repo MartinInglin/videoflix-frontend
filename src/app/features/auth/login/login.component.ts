@@ -116,22 +116,19 @@ export class LoginComponent {
       });
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.submitted = true;
+    const email = this.form.value.email;
+    const password = this.form.value.password;
 
     if (this.form.invalid) {
       return;
     }
-    this.redirect('/dashboard');
 
-    const toastCTAdata: ToastCTA = {
-      message: 'Please verify your email address first.',
-      textButton: 'Resend email',
-      action: this.authenticationService.resendVerificationEmail.bind(
-        this.authenticationService
-      ),
-    };
-    this.toastService.showToastCTA(toastCTAdata);
+    let success = await this.authenticationService.login(email, password);
+    if (success) {
+      this.redirect('/dashboard');
+    }
   }
 
   onReset(): void {
