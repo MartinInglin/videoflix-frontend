@@ -19,7 +19,7 @@ import {
   transition,
 } from '@angular/animations';
 import { Router } from '@angular/router';
-import { SignUpService } from '../../../services/sign-up.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -60,7 +60,7 @@ import { SignUpService } from '../../../services/sign-up.service';
 })
 export class SignUpComponent {
   router = inject(Router);
-  signUpService = inject(SignUpService);
+  authenticationService = inject(AuthenticationService);
 
   form: FormGroup = new FormGroup({
     email: new FormControl(''),
@@ -118,7 +118,7 @@ export class SignUpComponent {
     if (this.form.invalid) {
       return;
     }
-    await this.signUpService.signUp(email, password)
+    await this.authenticationService.signUp(email, password)
     this.redirect('/login');
   }
 

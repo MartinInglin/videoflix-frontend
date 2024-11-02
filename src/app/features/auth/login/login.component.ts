@@ -22,7 +22,7 @@ import { LandingPageService } from '../../../services/landing-page.service';
 import { take } from 'rxjs';
 import { ToastService } from '../../../services/toast.service';
 import { ToastCTA } from '../../../interfaces/toast-cta';
-import { VerificationService } from '../../../services/verification.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -66,7 +66,7 @@ export class LoginComponent {
   router = inject(Router);
   landingPageService = inject(LandingPageService);
   toastService = inject(ToastService);
-  verificationService = inject(VerificationService)
+  authenticationService = inject(AuthenticationService);
 
   form: FormGroup = new FormGroup({
     email: new FormControl(''),
@@ -119,16 +119,18 @@ export class LoginComponent {
   onSubmit(): void {
     this.submitted = true;
 
-    // if (this.form.invalid) {
-    //   return;
-    // }
+    if (this.form.invalid) {
+      return;
+    }
     this.redirect('/dashboard');
 
     const toastCTAdata: ToastCTA = {
       message: 'Please verify your email address first.',
       textButton: 'Resend email',
-      action: this.verificationService.resendVerificationEmail.bind(this.verificationService),
-    }
+      action: this.authenticationService.resendVerificationEmail.bind(
+        this.authenticationService
+      ),
+    };
     this.toastService.showToastCTA(toastCTAdata);
   }
 

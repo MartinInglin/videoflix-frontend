@@ -11,9 +11,9 @@ import { HeaderComponent } from '../../../shared/header/header.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { VerificationService } from '../../../services/verification.service';
 import { ToastService } from '../../../services/toast.service';
 import { ToastCTA } from '../../../interfaces/toast-cta';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-verification',
@@ -51,18 +51,17 @@ import { ToastCTA } from '../../../interfaces/toast-cta';
 export class VerificationComponent {
   router = inject(Router);
   route = inject(ActivatedRoute);
-  verificationService = inject(VerificationService);
+  authenticationService = inject(AuthenticationService);
   toastService = inject(ToastService);
 
   state = 'hidden-left';
   backgroundState = 'background-fade-out';
 
   async ngOnInit(): Promise<void> {
-    debugger;
     const token = this.route.snapshot.paramMap.get('token');
 
     if (token) {
-      const isVerified = await this.verificationService.verificateEmail(token);
+      const isVerified = await this.authenticationService.verificateEmail(token);
       if (isVerified) {
         this.showSuccess();
       } else {
@@ -96,8 +95,8 @@ export class VerificationComponent {
       const toastContent: ToastCTA = {
         message: 'Sorry, something went wrong.',
         textButton: 'Resend email',
-        action: this.verificationService.resendVerificationEmail.bind(
-          this.verificationService,
+        action: this.authenticationService.resendVerificationEmail.bind(
+          this.authenticationService,
           token
         ),
       };

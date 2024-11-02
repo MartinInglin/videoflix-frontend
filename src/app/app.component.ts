@@ -74,13 +74,12 @@ export class AppComponent {
     setTimeout(() => {
       this.errorToastState = 'visible';
     }, 0);
+
   }
 
   hideErrorToast() {
     this.errorToastState = 'hidden';
-    setTimeout(() => {
-      this.isVisible = false;
-    }, 0);
+    this.isVisible = false;
   }
 
   showErrorToastCTA() {

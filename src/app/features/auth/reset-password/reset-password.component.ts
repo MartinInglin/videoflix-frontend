@@ -18,7 +18,8 @@ import {
   animate,
   transition,
 } from '@angular/animations';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -55,6 +56,8 @@ import { Router } from '@angular/router';
 })
 export class ResetPasswordComponent {
   router = inject(Router);
+  route = inject(ActivatedRoute);
+  authenticationService = inject(AuthenticationService);
 
   form: FormGroup = new FormGroup({
     password: new FormControl(''),
@@ -94,13 +97,18 @@ export class ResetPasswordComponent {
     return this.form.invalid || this.form.pristine;
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.submitted = true;
+    const password = this.form.value.password;
+    const token = this.route.snapshot.paramMap.get('token');
 
     if (this.form.invalid) {
       return;
     }
-    this.redirect('/login')
+    if (token) {
+      await this.authenticationService.resetPassword(password, token);
+      this.redirect('/login');
+    }
   }
 
   onReset(): void {

@@ -18,6 +18,7 @@ import {
   transition,
 } from '@angular/animations';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -58,6 +59,7 @@ import { Router } from '@angular/router';
 })
 export class ForgotPasswordComponent {
   router = inject(Router);
+  authenticationService = inject(AuthenticationService);
 
   form: FormGroup = new FormGroup({
     email: new FormControl(''),
@@ -90,13 +92,14 @@ export class ForgotPasswordComponent {
     return this.form.invalid || this.form.pristine;
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.submitted = true;
+    const email = this.form.value.email;
 
     if (this.form.invalid) {
       return;
     }
-
+    await this.authenticationService.sendResetPasswordEmail(email);
     this.redirect('/login');
   }
 
