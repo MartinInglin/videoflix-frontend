@@ -2,8 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ToastService } from './toast.service';
 import { environment } from '../../environments/environment';
-import { last, lastValueFrom } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
 import { LoginResponse } from '../interfaces/login-response';
 import { ToastCTA } from '../interfaces/toast-cta';
 
@@ -12,7 +11,6 @@ import { ToastCTA } from '../interfaces/toast-cta';
 })
 export class AuthenticationService {
   http = inject(HttpClient);
-  route = inject(ActivatedRoute);
   toastService = inject(ToastService);
 
   constructor() {}
@@ -114,7 +112,9 @@ export class AuthenticationService {
       `Token ${localStorage.getItem('token')}`
     );
     try {
-      const response = await lastValueFrom(this.http.post(url, body, { headers }));
+      const response = await lastValueFrom(
+        this.http.post(url, body, { headers })
+      );
       localStorage.removeItem('token');
       return true;
     } catch (error) {

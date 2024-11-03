@@ -29,10 +29,8 @@ export class HeaderComponent implements OnInit {
   }
 
   async logout() {
-    let success = await this.authenticationService.logout();
-    if (success) {
-      this.sendRedirectLogin()
-    }
+    await this.authenticationService.logout();
+    this.sendRedirectLogin()
   }
 
   async sendRedirectLogin() {
