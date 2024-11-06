@@ -1,4 +1,4 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../../shared/header/header.component';
 import {
   trigger,
@@ -9,6 +9,8 @@ import {
 } from '@angular/animations';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { VideoService } from '../../../services/video.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-hero',
@@ -40,16 +42,23 @@ import { CommonModule } from '@angular/common';
 })
 export class HeroComponent {
   router = inject(Router);
+  videoService = inject(VideoService);
 
   state = 'hidden-bottom';
   teaserState = 'hidden-right';
   overflowMainContainer: string = 'hidden';
+
+  baseUrl = environment.baseUrl;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     if (window.innerWidth > 769) {
       this.redirect('/dashboard')
     }
+  }
+
+  ngOnInit(): void {
+    this.videoService.getHeroData()
   }
 
   ngAfterViewInit() {

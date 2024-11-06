@@ -111,14 +111,13 @@ export class AuthenticationService {
       'Authorization',
       `Token ${localStorage.getItem('token')}`
     );
+    localStorage.removeItem('token');
     try {
       const response = await lastValueFrom(
         this.http.post(url, body, { headers })
       );
-      localStorage.removeItem('token');
       return true;
     } catch (error) {
-      this.showToast('Logout failed');
       return false;
     }
   }

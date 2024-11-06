@@ -48,12 +48,12 @@
 }
 
 .hero {
-  margin-top: 170px;
-  margin-bottom: 113px;
-  width: 440px;
+  margin-bottom: 36px;
   display: flex;
   flex-direction: column;
   gap: 32px;
+  min-height: 500px;
+  justify-content: flex-end;
 
   .standard-button {
     width: 113px;

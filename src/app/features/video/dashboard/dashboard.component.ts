@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../../shared/header/header.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import {
@@ -9,11 +9,16 @@ import {
   transition,
 } from '@angular/animations';
 import { Router } from '@angular/router';
+import { VideoService } from '../../../services/video.service';
+import { filter, take } from 'rxjs';
+import { DashboardData } from '../../../interfaces/dashboard-data';
+import { environment } from '../../../../environments/environment';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent],
+  imports: [HeaderComponent, FooterComponent, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   animations: [
@@ -63,13 +68,25 @@ import { Router } from '@angular/router';
     ]),
   ],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   router = inject(Router);
+  videoService = inject(VideoService);
 
   state = 'hidden-bottom';
   teaserState = 'hidden-right';
   thumbnailState = 'blurred';
   zoomState = 'zoom-out';
+
+  baseUrl = environment.baseUrl;
+
+  ngOnInit(): void {
+    this.videoService.getDashboardData();
+    this.videoService.getHeroData();
+  }
+
+  upperCase(category: string) {
+    return category.charAt(0).toUpperCase() + category.slice(1);
+  }
 
   ngAfterViewInit() {
     document.body.style.overflow = 'hidden';
@@ -80,17 +97,19 @@ export class DashboardComponent {
     }, 200);
   }
 
-  showHero() {
+  showHero(videoId: number) {
     if (window.innerWidth > 769) {
       this.state = 'hidden-bottom';
       this.teaserState = 'hidden-right';
       setTimeout(() => {
+        this.videoService.setHeroVideoId(videoId);
         this.state = 'shown';
         this.teaserState = 'shown';
       }, 700);
     } else {
       this.thumbnailState = 'blurred';
       setTimeout(() => {
+        this.videoService.setHeroVideoId(videoId);
         this.redirect('/hero');
       }, 400);
     }

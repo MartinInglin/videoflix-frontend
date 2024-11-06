@@ -7,24 +7,19 @@
   [@hideShowTeaser]="teaserState"
   [@zoomThumbnailTrigger]="zoomState"
 >
-  <video
-    autoplay
-    class="hero-video"
-    src="./../../../../assets/videos/teaser.mp4"
-  ></video>
+  @if (videoService.heroVideoData | async; as video) {
+  <video autoplay class="hero-video" src="{{ baseUrl + video.teaser }}"></video>
+  }
+
   <div class="curtain"></div>
 </div>
 
 <div class="centered">
   <div class="main-container">
+    @if (videoService.heroVideoData | async; as video) {
     <div class="hero">
-      <div class="title" [@hideShowTrigger]="state">Breakout</div>
-      <p [@hideShowTrigger]="state">
-        In a high-security prison, a wrongly convicted man formulates a
-        meticulous plan to break out and prove his innocence. He must navigate a
-        web of alliances and betrayals to reclaim his freedom and expose the
-        truth.
-      </p>
+      <div class="title" [@hideShowTrigger]="state">{{ video.title }}</div>
+      <p [@hideShowTrigger]="state">{{ video.description }}</p>
       <button
         class="standard-button"
         [@hideShowTrigger]="state"
@@ -33,81 +28,58 @@
         <img src="assets/icons/play_arrow.svg" alt="" /> Play
       </button>
     </div>
+    }
 
     <div class="rows">
       <div class="row">
         <span class="subtitle">New on Videoflix</span>
         <div class="thumbnails">
+          @if (videoService.dashboardData | async; as videos) { @for (video of
+          videos.latest_videos; track video.id; let i = $index) {
           <img
-            src="./../../../../assets/thumbnails/rhythms_of_friendship.jpg"
-            alt=""
+            src="{{ baseUrl + video.thumbnail }}"
+            alt="{{ video.thumbnail }}"
             [@showThumbnailTrigger]="thumbnailState"
-            (click)="showHero()"
+            (click)="showHero(video.id)"
           />
-          <img
-            src="./../../../../assets/thumbnails/hate_you-min.jpg"
-            alt=""
-          />
-          <img
-            src="./../../../../assets/thumbnails/majestic_whales-min.jpg"
-            alt=""
-          />
-          <img
-            src="./../../../../assets/thumbnails/majestic_whales-min.jpg"
-            alt=""
-          />
-          <img
-            src="./../../../../assets/thumbnails/majestic_whales-min.jpg"
-            alt=""
-          />
-          <img
-            src="./../../../../assets/thumbnails/majestic_whales-min.jpg"
-            alt=""
-          />
+          }}
         </div>
       </div>
 
+      @if (videoService.dashboardData | async; as videos) { @if
+      (videos.my_videos.length > 0) {
       <div class="row">
-        <span class="subtitle">Documentary</span>
+        <span class="subtitle">My videos</span>
         <div class="thumbnails">
+          @for (video of videos.my_videos; track video.id; let i = $index) {
           <img
-            src="./../../../../assets/thumbnails/rhythms_of_friendship-min.jpg"
-            alt=""
+            src="{{ baseUrl + video.thumbnail }}"
+            alt="{{ video.thumbnail }}"
+            [@showThumbnailTrigger]="thumbnailState"
+            (click)="showHero(video.id)"
           />
-          <img
-            src="./../../../../assets/thumbnails/rhythms_of_friendship-min.jpg"
-            alt=""
-          />
+          }
         </div>
       </div>
-
+      } }
+      
+      @if (videoService.dashboardData | async; as dashboardData) { @for
+      (category of dashboardData.categories; track $index) {
       <div class="row">
-        <span class="subtitle">Drama</span>
+        <span class="subtitle">{{ this.upperCase(category) }}</span>
         <div class="thumbnails">
+          @for (video of dashboardData.category_videos[category]; track
+          video.id; let i = $index) {
           <img
-            src="./../../../../assets/thumbnails/rhythms_of_friendship-min.jpg"
-            alt=""
+            src="{{ baseUrl + video.thumbnail }}"
+            alt="{{ video.thumbnail }}"
+            [@showThumbnailTrigger]="thumbnailState"
+            (click)="showHero(video.id)"
           />
-          <img
-            src="./../../../../assets/thumbnails/rhythms_of_friendship-min.jpg"
-            alt=""
-          />
+          }
         </div>
       </div>
-
-      <div class="row">
-        <span class="subtitle">Romance</span>
-        <div class="thumbnails">
-          <img
-            src="./../../../../assets/thumbnails/rhythms_of_friendship-min.jpg"
-            alt=""
-          />
-          <img
-            src="./../../../../assets/thumbnails/rhythms_of_friendship-min.jpg"
-            alt=""
-          />
-        </div>
-      </div>
+      } }
     </div>
   </div>
 </div>
