@@ -19,6 +19,9 @@ export class ErrorToastCTAComponent {
   };
   isVisible = 'hidden';
 
+  /**
+   * This function subscribes to the toast data provided from the toast service.
+   */
   ngOnInit(): void {
     this.toastService.toastCTAdata.subscribe((toastData: ToastCTA | null) => {
       if (toastData) {
@@ -27,6 +30,9 @@ export class ErrorToastCTAComponent {
     });
   }
 
+  /**
+   * This function closes a toast by calling the hide toast function from the toast service.
+   */
   closeToast() {
     this.toastService.hideToast();
   }

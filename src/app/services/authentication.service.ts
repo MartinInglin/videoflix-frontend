@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ToastService } from './toast.service';
 import { environment } from '../../environments/environment';
@@ -18,13 +18,19 @@ export class AuthenticationService {
 
   constructor() {}
 
+  /**
+   * This function creates a new user in the back end.
+   * @param email string
+   * @param password string
+   * @returns boolean
+   */
   async signUp(email: string, password: string): Promise<boolean> {
     const url = environment.baseUrl + '/registration/';
     const body = { email, password };
 
     try {
       await lastValueFrom(this.http.post(url, body));
-      this.toastService.showToast('Account created.');
+      this.toastService.showToast('Account created. Please verify your email.');
       return true;
     } catch (error) {
       this.toastService.showToast(
@@ -34,6 +40,11 @@ export class AuthenticationService {
     }
   }
 
+  /**
+   * This function verificates the email address.
+   * @param token string
+   * @returns boolean
+   */
   async verificateEmail(token: string): Promise<boolean> {
     const url = environment.baseUrl + '/verification/';
     const body = { token };
@@ -42,19 +53,29 @@ export class AuthenticationService {
       await lastValueFrom(this.http.post(url, body));
       return true;
     } catch (error) {
-      const email = this.extractEmailFromToken(token)
+      const email = this.extractEmailFromToken(token);
       const toastData: ToastCTA = this.createToastDataVerificateEmail(email);
       this.toastService.showToastCTA(toastData);
       return false;
     }
   }
 
-  extractEmailFromToken(token:string):string {
+  /**
+   * This function extracts the email address from the token.
+   * @param token string
+   * @returns email address as string
+   */
+  extractEmailFromToken(token: string): string {
     const parts = token.split(':');
     const email = parts[0];
-    return email
+    return email;
   }
 
+  /**
+   * This function creates the data for a CTA toast (call to action).
+   * @param token string
+   * @returns object of type ToastCTA
+   */
   createToastDataVerificateEmail(token: string): ToastCTA {
     const toastContent: ToastCTA = {
       message: 'Sorry, something went wrong.',
@@ -64,9 +85,14 @@ export class AuthenticationService {
     return toastContent;
   }
 
-  async resendVerificationEmail(identifier: string): Promise<boolean> {
+  /**
+   * This function resends the verification email in case the user needs it again.
+   * @param identifier string as email address
+   * @returns boolean
+   */
+  async resendVerificationEmail(email: string): Promise<boolean> {
     const url = environment.baseUrl + '/resend_verifiction/';
-    const body = { identifier };
+    const body = { email };
 
     try {
       await lastValueFrom(this.http.post(url, body));
@@ -80,6 +106,11 @@ export class AuthenticationService {
     }
   }
 
+  /**
+   * This function sends an email in case the user forgot her password.
+   * @param email string
+   * @returns boolean
+   */
   async sendResetPasswordEmail(email: string): Promise<boolean> {
     const url = environment.baseUrl + '/forgot_password/';
     const body = { email };
@@ -96,6 +127,12 @@ export class AuthenticationService {
     }
   }
 
+  /**
+   * This function resets the password.
+   * @param password string
+   * @param token string
+   * @returns boolean
+   */
   async resetPassword(password: string, token: string): Promise<boolean> {
     const url = environment.baseUrl + '/reset_password/';
     const body = { password, token };
@@ -112,6 +149,12 @@ export class AuthenticationService {
     }
   }
 
+  /**
+   * This function logs the user in. The returned token is stored in the local storage.
+   * @param email string
+   * @param password string
+   * @returns boolean
+   */
   async login(email: string, password: string): Promise<boolean> {
     const url = environment.baseUrl + '/login/';
     const body = { username: email, password };
@@ -129,6 +172,11 @@ export class AuthenticationService {
     }
   }
 
+  /**
+   * This function creates the data for the CTA toast (call to action). It contains a button where the user can resend the verification email.
+   * @param email string
+   * @returns object of type ToastCTA
+   */
   createToastDataLogin(email: string): ToastCTA {
     return {
       message: 'Something went wrong. Already have an account?',
@@ -137,6 +185,10 @@ export class AuthenticationService {
     };
   }
 
+  /**
+   * This function logs out the user. It removes the token from the local storage first because even if the logout fails in the background a new token is created on a new login. But without a token in the front end the user cannot login any longer.
+   * @returns boolean
+   */
   async logout(): Promise<boolean> {
     const url = environment.baseUrl + '/logout/';
     const body = {};

@@ -55,6 +55,9 @@ export class VideoService {
 
   constructor() {}
 
+  /**
+   * This function gets the data for the dashboard from the back end and stores it in the observable _dashboardData.
+   */
   async getDashboardData() {
     const url = environment.baseUrl + '/dashboard/';
     const headers = getAuthHeaders();
@@ -69,22 +72,9 @@ export class VideoService {
     }
   }
 
-  async storeWatchHistory(timestamp: number) {
-    const video_id = this.selectedVideoId;
-    const url = environment.baseUrl + '/update_watch_history/';
-    const headers = getAuthHeaders();
-    const body = {
-      timestamp,
-      video_id,
-    };
-
-    try {
-      await lastValueFrom(this.http.post(url, body, { headers }));
-    } catch (error) {
-      this.toastService.showToast('Getting your watch history failed.');
-    }
-  }
-
+  /**
+   * This function gets the data for the hero area. The ID of the video is stored in the global variable selectedVideoId. It stores the data in the observable _heroVideoData.
+   */
   async getHeroData() {
     const url = environment.baseUrl + '/hero?id=' + this.selectedVideoId;
     const headers = getAuthHeaders();
@@ -99,7 +89,11 @@ export class VideoService {
     }
   }
 
-  async getVideo(videoResolution: number) {
+  /**
+   * This function gets the data for the actual video by the selected resolution. The ID of the video is stored in the global variable selectedVideoId. It stores the data in the observable _selectedVideoData.
+   * @param videoResolution number of type Resolutions
+   */
+  async getVideo(videoResolution: Resolutions) {
     this.getVideoIdFromSessionStorage();
     const url =
       environment.baseUrl +
@@ -119,21 +113,54 @@ export class VideoService {
     }
   }
 
+  /**
+   * This function stores the timestamp of the current video together with the video ID in the watch history of the user.
+   * @param timestamp number
+   */
+  async storeWatchHistory(timestamp: number) {
+    const video_id = this.selectedVideoId;
+    const url = environment.baseUrl + '/update_watch_history/';
+    const headers = getAuthHeaders();
+    const body = {
+      timestamp,
+      video_id,
+    };
+
+    try {
+      await lastValueFrom(this.http.post(url, body, { headers }));
+    } catch (error) {
+      this.toastService.showToast('Getting your watch history failed.');
+    }
+  }
+
+  /**
+   * This function stores the video ID of the selected video in the dashboard both locally and in the session storage.
+   * @param id number - ID of video
+   */
   setselectedVideoId(id: number) {
     this.selectedVideoId = id;
     this.storeVideoIdSessionStorage();
-    this.getHeroData();
   }
 
+  /**
+   * This function sets the observable _videoResolution to the incoming value.
+   * @param resolution number of type Resolutions
+   */
   setVideoResolution(resolution: Resolutions) {
     this._videoResolution.next(resolution);
   }
 
+  /**
+   * This function stores the video ID to the session storage.
+   */
   storeVideoIdSessionStorage() {
     const selectedVideoIdAsString = `${this.selectedVideoId}`;
     sessionStorage.setItem('selectedVideoId', selectedVideoIdAsString);
   }
 
+  /**
+   * This function gets the video ID from the session storage.
+   */
   getVideoIdFromSessionStorage() {
     const selectedVideoId = sessionStorage.getItem('selectedVideoId');
     if (selectedVideoId) {
@@ -141,11 +168,19 @@ export class VideoService {
     }
   }
 
+  /**
+   * This function stores the timestamp in the session storage.
+   * @param timestamp number
+   */
   storeVideoTimestampSessionStorage(timestamp: number) {
     const videoTimestampAsString = `${timestamp}`;
     sessionStorage.setItem('timestamp', videoTimestampAsString);
   }
 
+  /**
+   * This function gets the timestamp from the session storage.
+   * @returns number or 0 if there is no timestamp
+   */
   getVideoTimestampFromSessionStorage(): number {
     const timestamp = sessionStorage.getItem('timestamp');
     if (timestamp) {

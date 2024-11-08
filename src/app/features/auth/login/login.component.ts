@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../../shared/header/header.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import {
@@ -62,7 +62,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
     ]),
   ],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, AfterViewInit {
   router = inject(Router);
   landingPageService = inject(LandingPageService);
   toastService = inject(ToastService);
@@ -80,11 +80,17 @@ export class LoginComponent {
 
   constructor(private formBuilder: FormBuilder) {}
 
+  /**
+   * This function builds the form and sets the value of the email field in case the user has entered anything on the landing page.
+   */
   ngOnInit(): void {
     this.buildForm();
     this.setValueEmailField();
   }
 
+  /**
+   * This function sets the validation form and the requieries.
+   */
   buildForm() {
     this.form = this.formBuilder.group({
       email: [
@@ -100,14 +106,23 @@ export class LoginComponent {
     });
   }
 
+  /**
+   * This function is a getter function to retrieve all form controls in the current form group.
+   */
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
   }
 
+  /**
+   * This function is a getter function to check if the form is either invalid or untouched (pristine).
+   */
   get formEmpty() {
     return this.form.invalid || this.form.pristine;
   }
 
+  /**
+   * This function sets the value of the email field depending on the value of the observable inputData.
+   */
   setValueEmailField() {
     this.landingPageService.inputData
       .pipe(take(1))
@@ -116,6 +131,10 @@ export class LoginComponent {
       });
   }
 
+  /**
+   * This function submits the form if it is valid. If it is the password is logged in.
+   * @returns
+   */
   async onSubmit(): Promise<void> {
     this.submitted = true;
     const email = this.form.value.email;
@@ -131,15 +150,24 @@ export class LoginComponent {
     }
   }
 
+  /**
+   * This function resets the form.
+   */
   onReset(): void {
     this.submitted = false;
     this.form.reset();
   }
 
+  /**
+   * This function toggles the variable passwordVisible.
+   */
   togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;
   }
 
+  /**
+   * This function triggers the animation when the page is loaded.
+   */
   ngAfterViewInit() {
     document.body.style.overflow = 'hidden';
     setTimeout(() => {
@@ -151,6 +179,10 @@ export class LoginComponent {
     }, 1200);
   }
 
+  /**
+   * This function handles the animation in case the user leaves the page.
+   * @param target string
+   */
   redirect(target: string) {
     this.state = 'hidden-left';
     this.backgroundState = 'background-fade-out';

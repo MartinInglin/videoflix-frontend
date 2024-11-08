@@ -11,8 +11,6 @@ import { HeaderComponent } from '../../../shared/header/header.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ToastService } from '../../../services/toast.service';
-import { ToastCTA } from '../../../interfaces/toast-cta';
 import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
@@ -52,11 +50,13 @@ export class VerificationComponent {
   router = inject(Router);
   route = inject(ActivatedRoute);
   authenticationService = inject(AuthenticationService);
-  toastService = inject(ToastService);
 
   state = 'hidden-left';
   backgroundState = 'background-fade-out';
 
+  /**
+   * This function checks in initializattion of the component if the token transmitted in the url is valid. If so, a success message is shown. The case if the token is not valid is handled in the autentication service.
+   */
   async ngOnInit(): Promise<void> {
     const token = this.route.snapshot.paramMap.get('token');
 
@@ -70,6 +70,10 @@ export class VerificationComponent {
     }
   }
 
+  /**
+   * This function redirects the user to the target.
+   * @param target string
+   */
   redirect(target: string) {
     this.state = 'hidden-left';
     this.backgroundState = 'background-fade-out';
@@ -78,6 +82,9 @@ export class VerificationComponent {
     }, 400);
   }
 
+  /**
+   * This function triggers the animation to show the user the success message.
+   */
   showSuccess() {
     document.body.style.overflow = 'hidden';
     setTimeout(() => {

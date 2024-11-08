@@ -10,6 +10,10 @@ export class LandingPageService {
 
   constructor() {}
 
+  /**
+   * This function sets the data the user writes into the field on the landing page and provides it as an observable. It is needed on the login page.
+   * @param data string
+   */
   setInputData(data: string) {
     this._inputData.next(data);
   }

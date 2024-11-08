@@ -52,6 +52,9 @@ export class LandingPageComponent {
   backgroundState = 'background-fade-out';
   inputData = '';
 
+  /**
+   * This function triggers the animation of the landing page after the page has loaded.
+   */
   ngAfterViewInit() {
     document.body.style.overflow = 'hidden';
     setTimeout(() => {
@@ -63,6 +66,9 @@ export class LandingPageComponent {
     }, 1000);
   }
 
+  /**
+   * This function triggers the animation of the landing page and redirects to the login.
+   */
   redirectLogin() {
     this.state = 'hidden-left';
     this.backgroundState = 'background-fade-out';

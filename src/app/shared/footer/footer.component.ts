@@ -6,13 +6,16 @@ import { Router, RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterModule],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrl: './footer.component.scss',
 })
 export class FooterComponent implements OnInit {
   router = inject(Router);
 
   route: string = '/login';
 
+  /**
+   * This function gets the current url on initialization of the component.
+   */
   ngOnInit(): void {
     this.route = this.router.url;
   }

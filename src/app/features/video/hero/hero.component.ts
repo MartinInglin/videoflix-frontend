@@ -1,4 +1,10 @@
-import { Component, HostListener, inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { HeaderComponent } from '../../../shared/header/header.component';
 import {
   trigger,
@@ -40,7 +46,7 @@ import { environment } from '../../../../environments/environment';
     ]),
   ],
 })
-export class HeroComponent {
+export class HeroComponent implements OnInit, AfterViewInit {
   router = inject(Router);
   videoService = inject(VideoService);
 
@@ -50,17 +56,16 @@ export class HeroComponent {
 
   baseUrl = environment.baseUrl;
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    if (window.innerWidth > 769) {
-      this.redirect('/dashboard')
-    }
-  }
-
+  /**
+   * This function initializes the loading of the hero data from the database.
+   */
   ngOnInit(): void {
-    this.videoService.getHeroData()
+    this.videoService.getHeroData();
   }
 
+  /**
+   * This function triggers the animation of the page when loading.
+   */
   ngAfterViewInit() {
     document.body.style.overflow = 'hidden';
     setTimeout(() => {
@@ -73,6 +78,21 @@ export class HeroComponent {
     }, 1200);
   }
 
+  /**
+   * This function redirects the user to the dashboard in case the window is smaller than 769px. It is needed because otherwise the user could be stuck in the hero view.
+   * @param event event
+   */
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    if (window.innerWidth > 769) {
+      this.redirect('/dashboard');
+    }
+  }
+
+  /**
+   * This function triggers the animation of the page when the user opens a video.
+   * @param target string, redirect location
+   */
   openVideo(target: string) {
     document.body.style.overflow = 'hidden';
     this.overflowMainContainer = 'hidden';
@@ -84,6 +104,9 @@ export class HeroComponent {
     }, 1000);
   }
 
+  /**
+   * This function triggers the animation of the page in case the user leaves to dashboard.
+   */
   redirectDashobard() {
     document.body.style.overflow = 'hidden';
     this.overflowMainContainer = 'hidden';
@@ -94,6 +117,10 @@ export class HeroComponent {
     }, 1000);
   }
 
+  /**
+   * This function redirects to target.
+   * @param target string, redirect location
+   */
   redirect(target: string) {
     this.router.navigate([`${target}`]);
   }

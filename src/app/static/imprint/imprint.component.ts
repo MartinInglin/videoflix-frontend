@@ -6,8 +6,6 @@ import { HeaderComponent } from '../../shared/header/header.component';
   standalone: true,
   imports: [HeaderComponent],
   templateUrl: './imprint.component.html',
-  styleUrl: './imprint.component.scss'
+  styleUrl: './imprint.component.scss',
 })
-export class ImprintComponent {
-
-}
+export class ImprintComponent {}

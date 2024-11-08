@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../../shared/header/header.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { CommonModule } from '@angular/common';
@@ -58,7 +58,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
     ]),
   ],
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit, AfterViewInit {
   router = inject(Router);
   authenticationService = inject(AuthenticationService);
 
@@ -74,6 +74,9 @@ export class SignUpComponent {
 
   constructor(private formBuilder: FormBuilder) {}
 
+  /**
+   * This function sets the validation form and the requieries.
+   */
   ngOnInit(): void {
     this.form = this.formBuilder.group(
       {
@@ -102,35 +105,54 @@ export class SignUpComponent {
     );
   }
 
+  /**
+   * This function is a getter function to retrieve all form controls in the current form group.
+   */
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
   }
 
+  /**
+   * This function is a getter function to check if the form is either invalid or untouched (pristine).
+   */
   get formEmpty() {
     return this.form.invalid || this.form.pristine;
   }
 
+  /**
+   * This function submits the form if it is valid. If it is a new user is created.
+   * @returns
+   */
   async onSubmit(): Promise<void> {
     this.submitted = true;
-    const email = this.form.value.email
-    const password = this.form.value.password
+    const email = this.form.value.email;
+    const password = this.form.value.password;
 
     if (this.form.invalid) {
       return;
     }
-    await this.authenticationService.signUp(email, password)
+    await this.authenticationService.signUp(email, password);
     this.redirect('/login');
   }
 
+  /**
+   * This function resets the form.
+   */
   onReset(): void {
     this.submitted = false;
     this.form.reset();
   }
 
+  /**
+   * This function toggles the variable passwordVisible.
+   */
   togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;
   }
 
+  /**
+   * This function triggers the animation when the page is loaded.
+   */
   ngAfterViewInit() {
     document.body.style.overflow = 'hidden';
     setTimeout(() => {
@@ -142,6 +164,10 @@ export class SignUpComponent {
     }, 1200);
   }
 
+  /**
+   * This function handles the animation in case the user leaves the page.
+   * @param target string
+   */
   redirect(target: string) {
     this.state = 'hidden-left';
     this.backgroundState = 'background-fade-out';

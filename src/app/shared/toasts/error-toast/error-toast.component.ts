@@ -14,12 +14,18 @@ export class ErrorToastComponent {
   message = '';
   isVisible = 'hidden';
 
+  /**
+   * This function subscribes to the toast message provided from the toast service.
+   */
   ngOnInit(): void {
     this.toastService.toastMessage.subscribe((message: string) => {
       this.message = message;
     });
   }
 
+  /**
+   * This function closes a toast by calling the hide toast function from the toast service.
+   */
   closeToast() {
     this.toastService.hideToast();
   }

@@ -34,6 +34,9 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
 
   player!: ReturnType<typeof videojs>;
 
+  /**
+   * This function initializes the vjs player and checks if there is a timestamp in session storage available.
+   */
   ngOnInit() {
     const playerOptions = {
       ...this.options,
@@ -51,6 +54,10 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     this.getCurrentTimestamp();
   }
 
+  /**
+   * This function changes the timestamp of the player by the seconds input. It is needed to skip forward and rewind.
+   * @param seconds number
+   */
   changeTimestamp(seconds: number) {
     const currentTime = this.player.currentTime();
     if (currentTime) {
@@ -58,6 +65,9 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * This function stores the current timestamp in the session storage.
+   */
   setCurrentTimestamp() {
     const timestamp = this.player.currentTime();
     if (timestamp) {
@@ -65,6 +75,9 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * This function gets the timestamp from the session storage.
+   */
   getCurrentTimestamp() {
     const timestamp = this.videoService.getVideoTimestampFromSessionStorage();
     if (timestamp) {
@@ -72,6 +85,10 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * This function gets the new .m3u8 and the corresponding .ts files from the database in case the user switches the resolution.
+   * @param newResolutionUrl string
+   */
   reloadVideo(newResolutionUrl: string) {
     this.player.src({ src: newResolutionUrl, type: 'application/x-mpegURL' });
     const currentTime = this.player.currentTime();
@@ -80,10 +97,16 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     this.playVideo();
   }
 
+  /**
+   * This function plays the video.
+   */
   playVideo() {
     this.player.play();
   }
 
+  /**
+   * This function stores the timestamp before the player is destroyed.
+   */
   ngOnDestroy() {
     if (this.player) {
       const currentTime = this.player.currentTime();

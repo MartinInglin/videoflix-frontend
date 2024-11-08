@@ -42,11 +42,17 @@ export class AppComponent {
   isVisibleCTA = false;
   errorToastStateCTA = 'hidden';
 
+  /**
+   * This function initializes the two subscriptions of both toasts.
+   */
   ngOnInit(): void {
     this.subscribeToast();
     this.subscribeCTAToast();
   }
 
+  /**
+   * This function subscribes to the displayToast variable from the toast service. It is used to determine wether the toast is displayed or not.
+   */
   subscribeToast() {
     this.toastService.displayToast.subscribe((displayToast) => {
       this.displayToast = displayToast;
@@ -58,6 +64,9 @@ export class AppComponent {
     });
   }
 
+  /**
+   * This function subscribes to the displayToastCTA (call to action) variable from the toast service. It is used to determine wether the toast is displayed or not.
+   */
   subscribeCTAToast() {
     this.toastService.displayToastCTA.subscribe((displayToastCTA) => {
       this.displayToastCTA = displayToastCTA;
@@ -69,6 +78,9 @@ export class AppComponent {
     });
   }
 
+  /**
+   * This function sets the variable isVisible to true and starts the animation to display it. The timeout is needed so the animation plays correctly.
+   */
   showErrorToast() {
     this.isVisible = true;
     setTimeout(() => {
@@ -76,11 +88,17 @@ export class AppComponent {
     }, 0);
   }
 
+  /**
+   * This function hides the toast by setting the variable isVisible to false. It resets the animation state to hidden.
+   */
   hideErrorToast() {
     this.errorToastState = 'hidden';
     this.isVisible = false;
   }
 
+  /**
+   * This function sets the variable isVisibleCTA (call to action) to true and starts the animation to display it. The timeout is needed so the animation plays correctly.
+   */
   showErrorToastCTA() {
     this.isVisibleCTA = true;
     setTimeout(() => {
@@ -88,6 +106,9 @@ export class AppComponent {
     }, 0);
   }
 
+  /**
+   * This function hides the toast by setting the variable isVisibleCTA (call to action) to false. It resets the animation state to hidden.
+   */
   hideErrorToastCTA() {
     this.errorToastStateCTA = 'hidden';
     this.isVisibleCTA = false;

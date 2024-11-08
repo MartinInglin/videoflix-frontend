@@ -28,6 +28,10 @@ export class ToastService {
 
   constructor() {}
 
+  /**
+   * This function firstly hides a remaining toast and then displays the new toast for 5s.
+   * @param message string
+   */
   showToast(message: string) {
     this.hideToast();
     this._toastMessage.next(message);
@@ -40,6 +44,10 @@ export class ToastService {
     }, 5000);
   }
 
+  /**
+   * This function firstly hides a remaining toast and then displays the new toast for 5s.
+   * @param toastData object of tpy ToastCTA
+   */
   showToastCTA(toastData: ToastCTA) {
     this.hideToast();
     this._toastCTAdata.next(toastData);
@@ -52,6 +60,9 @@ export class ToastService {
     }, 5000);
   }
 
+  /**
+   * This function hides any toast displayed.
+   */
   hideToast() {
     clearTimeout(this.toastTimeout);
     this._displayToast.next(false);
