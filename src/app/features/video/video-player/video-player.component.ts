@@ -42,7 +42,7 @@ export class VideoPlayerComponent {
 
   async ngOnInit() {
     this.adjustPlayerSize();
-    this.getVideoResolution();
+    this.subscribeVideoResolution();
     this.setInitialVideoResolution();
     await this.videoService.getVideo(this.videoResolution);
     this.getVideoDataFromService();
@@ -71,7 +71,7 @@ export class VideoPlayerComponent {
       });
   }
 
-  getVideoResolution() {
+  subscribeVideoResolution() {
     this.videoService.videoResolution.subscribe((videoResolution) => {
       this.videoResolution = videoResolution;
     });

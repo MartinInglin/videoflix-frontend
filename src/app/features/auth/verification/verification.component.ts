@@ -61,11 +61,11 @@ export class VerificationComponent {
     const token = this.route.snapshot.paramMap.get('token');
 
     if (token) {
-      const isVerified = await this.authenticationService.verificateEmail(token);
+      const isVerified = await this.authenticationService.verificateEmail(
+        token
+      );
       if (isVerified) {
         this.showSuccess();
-      } else {
-        this.showErrorToast();
       }
     }
   }
@@ -87,20 +87,5 @@ export class VerificationComponent {
     setTimeout(() => {
       document.body.style.overflow = 'auto';
     }, 1000);
-  }
-
-  showErrorToast() {
-    const token = this.route.snapshot.paramMap.get('token');
-    if (token) {
-      const toastContent: ToastCTA = {
-        message: 'Sorry, something went wrong.',
-        textButton: 'Resend email',
-        action: this.authenticationService.resendVerificationEmail.bind(
-          this.authenticationService,
-          token
-        ),
-      };
-      this.toastService.showToastCTA(toastContent);
-    }
   }
 }

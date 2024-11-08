@@ -9,14 +9,19 @@ export class ToastService {
   private _displayToast: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public displayToast: Observable<boolean> = this._displayToast.asObservable();
 
-  private _displayToastCTA: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  public displayToastCTA: Observable<boolean> = this._displayToastCTA.asObservable();
+  private _displayToastCTA: BehaviorSubject<boolean> = new BehaviorSubject(
+    false
+  );
+  public displayToastCTA: Observable<boolean> =
+    this._displayToastCTA.asObservable();
 
   private _toastMessage: BehaviorSubject<string> = new BehaviorSubject('');
   public toastMessage: Observable<string> = this._toastMessage.asObservable();
 
-  private _toastCTAdata: BehaviorSubject<ToastCTA | null> = new BehaviorSubject<ToastCTA | null>(null);
-  public toastCTAdata: Observable<ToastCTA | null> = this._toastCTAdata.asObservable();
+  private _toastCTAdata: BehaviorSubject<ToastCTA | null> =
+    new BehaviorSubject<ToastCTA | null>(null);
+  public toastCTAdata: Observable<ToastCTA | null> =
+    this._toastCTAdata.asObservable();
 
   toastTimeout: any;
   toastTimeoutCTA: any;
@@ -24,6 +29,7 @@ export class ToastService {
   constructor() {}
 
   showToast(message: string) {
+    this.hideToast();
     this._toastMessage.next(message);
     this._displayToast.next(true);
 
@@ -35,7 +41,8 @@ export class ToastService {
   }
 
   showToastCTA(toastData: ToastCTA) {
-    this._toastCTAdata.next(toastData)
+    this.hideToast();
+    this._toastCTAdata.next(toastData);
     this._displayToastCTA.next(true);
 
     clearTimeout(this.toastTimeoutCTA);
@@ -48,6 +55,6 @@ export class ToastService {
   hideToast() {
     clearTimeout(this.toastTimeout);
     this._displayToast.next(false);
-    this._displayToastCTA.next(false)
+    this._displayToastCTA.next(false);
   }
 }

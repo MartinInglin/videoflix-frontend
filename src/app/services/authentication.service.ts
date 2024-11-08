@@ -5,6 +5,8 @@ import { environment } from '../../environments/environment';
 import { lastValueFrom } from 'rxjs';
 import { LoginResponse } from '../interfaces/login-response';
 import { ToastCTA } from '../interfaces/toast-cta';
+import { getAuthHeaders } from '../utils/functions';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +14,7 @@ import { ToastCTA } from '../interfaces/toast-cta';
 export class AuthenticationService {
   http = inject(HttpClient);
   toastService = inject(ToastService);
+  route = inject(ActivatedRoute);
 
   constructor() {}
 
@@ -20,11 +23,13 @@ export class AuthenticationService {
     const body = { email, password };
 
     try {
-      const response = await lastValueFrom(this.http.post(url, body));
-      this.showToast('Account created.');
+      await lastValueFrom(this.http.post(url, body));
+      this.toastService.showToast('Account created.');
       return true;
     } catch (error) {
-      this.showToast('An error occured. Please contact our support.');
+      this.toastService.showToast(
+        'An error occured. Please contact our support.'
+      );
       return false;
     }
   }
@@ -34,11 +39,29 @@ export class AuthenticationService {
     const body = { token };
 
     try {
-      const response = await lastValueFrom(this.http.post(url, body));
+      await lastValueFrom(this.http.post(url, body));
       return true;
     } catch (error) {
+      const email = this.extractEmailFromToken(token)
+      const toastData: ToastCTA = this.createToastDataVerificateEmail(email);
+      this.toastService.showToastCTA(toastData);
       return false;
     }
+  }
+
+  extractEmailFromToken(token:string):string {
+    const parts = token.split(':');
+    const email = parts[0];
+    return email
+  }
+
+  createToastDataVerificateEmail(token: string): ToastCTA {
+    const toastContent: ToastCTA = {
+      message: 'Sorry, something went wrong.',
+      textButton: 'Resend email',
+      action: () => this.resendVerificationEmail(token),
+    };
+    return toastContent;
   }
 
   async resendVerificationEmail(identifier: string): Promise<boolean> {
@@ -46,11 +69,13 @@ export class AuthenticationService {
     const body = { identifier };
 
     try {
-      const response = await lastValueFrom(this.http.post(url, body));
-      this.showToast('Email has been sent.');
+      await lastValueFrom(this.http.post(url, body));
+      this.toastService.showToast('Email has been sent.');
       return true;
     } catch (error) {
-      this.showToast('An error occured. Please contact our support.');
+      this.toastService.showToast(
+        'An error occured. Please contact our support.'
+      );
       return false;
     }
   }
@@ -60,11 +85,13 @@ export class AuthenticationService {
     const body = { email };
 
     try {
-      const response = await lastValueFrom(this.http.post(url, body));
-      this.showToast('Email has been sent.');
+      await lastValueFrom(this.http.post(url, body));
+      this.toastService.showToast('Email has been sent.');
       return true;
     } catch (error) {
-      this.showToast('An error occured. Please contact our support.');
+      this.toastService.showToast(
+        'An error occured. Please contact our support.'
+      );
       return false;
     }
   }
@@ -74,18 +101,20 @@ export class AuthenticationService {
     const body = { password, token };
 
     try {
-      const response = await lastValueFrom(this.http.post(url, body));
-      this.showToast('Password reset.');
+      await lastValueFrom(this.http.post(url, body));
+      this.toastService.showToast('Password reset.');
       return true;
     } catch (error) {
-      this.showToast('An error occured. Please contact our support.');
+      this.toastService.showToast(
+        'An error occured. Please contact our support.'
+      );
       return false;
     }
   }
 
-  async login(username: string, password: string): Promise<boolean> {
+  async login(email: string, password: string): Promise<boolean> {
     const url = environment.baseUrl + '/login/';
-    const body = { username, password };
+    const body = { username: email, password };
     try {
       const response = await lastValueFrom(
         this.http.post<LoginResponse>(url, body)
@@ -94,41 +123,30 @@ export class AuthenticationService {
       localStorage.setItem('token', token);
       return true;
     } catch (error) {
-      const toastData: ToastCTA = {
-        message: 'Something went wrong. Already have an account?',
-        textButton: 'Send verification email',
-        action: this.resendVerificationEmail.bind(username),
-      };
-      this.showToastCTA(toastData);
+      const toastData: ToastCTA = this.createToastDataLogin(email);
+      this.toastService.showToastCTA(toastData);
       return false;
     }
+  }
+
+  createToastDataLogin(email: string): ToastCTA {
+    return {
+      message: 'Something went wrong. Already have an account?',
+      textButton: 'Send verification email',
+      action: () => this.resendVerificationEmail(email),
+    };
   }
 
   async logout(): Promise<boolean> {
     const url = environment.baseUrl + '/logout/';
     const body = {};
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Token ${localStorage.getItem('token')}`
-    );
+    const headers = getAuthHeaders();
     localStorage.removeItem('token');
     try {
-      const response = await lastValueFrom(
-        this.http.post(url, body, { headers })
-      );
+      await lastValueFrom(this.http.post(url, body, { headers }));
       return true;
     } catch (error) {
       return false;
     }
-  }
-
-  showToast(message: string) {
-    this.toastService.hideToast();
-    this.toastService.showToast(message);
-  }
-
-  showToastCTA(toastData: ToastCTA) {
-    this.toastService.hideToast();
-    this.toastService.showToastCTA(toastData);
   }
 }

@@ -51,19 +51,6 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     this.getCurrentTimestamp();
   }
 
-  ngOnDestroy() {
-    if (this.player) {
-      const currentTime = this.player.currentTime();
-
-      if (currentTime) {
-        const timeAsInteger = Math.floor(currentTime);
-        this.videoService.storeWatchHistory(timeAsInteger);
-      }
-
-      this.player.dispose();
-    }
-  }
-
   changeTimestamp(seconds: number) {
     const currentTime = this.player.currentTime();
     if (currentTime) {
@@ -85,15 +72,27 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
     }
   }
 
-  reloadVideo(newResolutionUrl:string) {
+  reloadVideo(newResolutionUrl: string) {
     this.player.src({ src: newResolutionUrl, type: 'application/x-mpegURL' });
     const currentTime = this.player.currentTime();
-    this.player.load()
+    this.player.load();
     this.player.currentTime(currentTime);
-    this.playVideo()
+    this.playVideo();
   }
 
   playVideo() {
-    this.player.play()
+    this.player.play();
+  }
+
+  ngOnDestroy() {
+    if (this.player) {
+      const currentTime = this.player.currentTime();
+
+      if (currentTime) {
+        const timeAsInteger = Math.floor(currentTime);
+        this.videoService.storeWatchHistory(timeAsInteger);
+      }
+      this.player.dispose();
+    }
   }
 }

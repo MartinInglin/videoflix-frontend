@@ -1,17 +1,20 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
 import { DashboardData } from '../interfaces/dashboard-data';
 import { HeroVideoModel } from '../models/hero-video.class';
 import { Resolutions } from '../interfaces/resolutions';
 import { VideoModel } from '../models/video.class';
+import { getAuthHeaders } from '../utils/functions';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VideoService {
   http = inject(HttpClient);
+  toastService = inject(ToastService);
 
   private _dashboardData: BehaviorSubject<DashboardData> =
     new BehaviorSubject<DashboardData>({
@@ -54,10 +57,7 @@ export class VideoService {
 
   async getDashboardData() {
     const url = environment.baseUrl + '/dashboard/';
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Token ${localStorage.getItem('token')}`
-    );
+    const headers = getAuthHeaders();
 
     try {
       const response = await lastValueFrom(
@@ -65,28 +65,57 @@ export class VideoService {
       );
       this._dashboardData.next(response);
     } catch (error) {
-      console.log('Getting dashboard data failed', error);
+      this.toastService.showToast('Getting your data failed.');
     }
   }
 
   async storeWatchHistory(timestamp: number) {
     const video_id = this.selectedVideoId;
     const url = environment.baseUrl + '/update_watch_history/';
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Token ${localStorage.getItem('token')}`
-    );
+    const headers = getAuthHeaders();
     const body = {
       timestamp,
       video_id,
     };
 
     try {
-      const response = await lastValueFrom(
-        this.http.post(url, body, { headers })
-      );
+      await lastValueFrom(this.http.post(url, body, { headers }));
     } catch (error) {
-      console.log('Getting dashboard data failed', error);
+      this.toastService.showToast('Getting your watch history failed.');
+    }
+  }
+
+  async getHeroData() {
+    const url = environment.baseUrl + '/hero?id=' + this.selectedVideoId;
+    const headers = getAuthHeaders();
+    try {
+      const response = await lastValueFrom(
+        this.http.get<HeroVideoModel>(url, { headers })
+      );
+      this._heroVideoData.next(response);
+      this.selectedVideoId = response.id;
+    } catch (error) {
+      this.toastService.showToast('Getting hero video data failed.');
+    }
+  }
+
+  async getVideo(videoResolution: number) {
+    this.getVideoIdFromSessionStorage();
+    const url =
+      environment.baseUrl +
+      '/video?id=' +
+      this.selectedVideoId +
+      '&resolution=' +
+      videoResolution;
+    const headers = getAuthHeaders();
+    try {
+      const response = await lastValueFrom(
+        this.http.get<VideoModel>(url, { headers })
+      );
+      this._selectedVideoData.next(response);
+      this.storeVideoTimestampSessionStorage(response.timestamp);
+    } catch (error) {
+      this.toastService.showToast('Getting video data failed');
     }
   }
 
@@ -96,9 +125,20 @@ export class VideoService {
     this.getHeroData();
   }
 
+  setVideoResolution(resolution: Resolutions) {
+    this._videoResolution.next(resolution);
+  }
+
   storeVideoIdSessionStorage() {
     const selectedVideoIdAsString = `${this.selectedVideoId}`;
     sessionStorage.setItem('selectedVideoId', selectedVideoIdAsString);
+  }
+
+  getVideoIdFromSessionStorage() {
+    const selectedVideoId = sessionStorage.getItem('selectedVideoId');
+    if (selectedVideoId) {
+      this.selectedVideoId = +selectedVideoId;
+    }
   }
 
   storeVideoTimestampSessionStorage(timestamp: number) {
@@ -113,59 +153,6 @@ export class VideoService {
       return timestampAsNumber;
     } else {
       return 0;
-    }
-  }
-
-  async getHeroData() {
-    const url = environment.baseUrl + '/hero?id=' + this.selectedVideoId;
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Token ${localStorage.getItem('token')}`
-    );
-    try {
-      const response = await lastValueFrom(
-        this.http.get<HeroVideoModel>(url, { headers })
-      );
-      this._heroVideoData.next(response);
-      this.selectedVideoId = response.id;
-    } catch (error) {
-      console.log('Getting hero video data failed', error);
-    }
-  }
-
-  async getVideo(videoResolution: number) {
-    this.getVideoIdFromSessionStorage();
-    const url =
-      environment.baseUrl +
-      '/video?id=' +
-      this.selectedVideoId +
-      '&resolution=' +
-      videoResolution;
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Token ${localStorage.getItem('token')}`
-    );
-    try {
-      const response = await lastValueFrom(
-        this.http.get<VideoModel>(url, { headers })
-      );
-      this._selectedVideoData.next(response);
-      const timestamp = response.timestamp;
-      const timestampAsString = `${timestamp}`;
-      sessionStorage.setItem('timestamp', timestampAsString);
-    } catch (error) {
-      console.log('Getting video data failed', error);
-    }
-  }
-
-  setVideoResolution(resolution: Resolutions) {
-    this._videoResolution.next(resolution);
-  }
-
-  getVideoIdFromSessionStorage() {
-    const selectedVideoId = sessionStorage.getItem('selectedVideoId');
-    if (selectedVideoId) {
-      this.selectedVideoId = +selectedVideoId;
     }
   }
 }
