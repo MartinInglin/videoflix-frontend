@@ -10,8 +10,6 @@ import {
 } from '@angular/animations';
 import { Router } from '@angular/router';
 import { VideoService } from '../../../services/video.service';
-import { filter, take } from 'rxjs';
-import { DashboardData } from '../../../interfaces/dashboard-data';
 import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
 
@@ -102,14 +100,14 @@ export class DashboardComponent implements OnInit {
       this.state = 'hidden-bottom';
       this.teaserState = 'hidden-right';
       setTimeout(() => {
-        this.videoService.setHeroVideoId(videoId);
+        this.videoService.setselectedVideoId(videoId);
         this.state = 'shown';
         this.teaserState = 'shown';
       }, 700);
     } else {
       this.thumbnailState = 'blurred';
       setTimeout(() => {
-        this.videoService.setHeroVideoId(videoId);
+        this.videoService.setselectedVideoId(videoId);
         this.redirect('/hero');
       }, 400);
     }

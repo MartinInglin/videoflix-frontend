@@ -2,7 +2,7 @@
     background-color: black;
 }
 
-.imprint-component {
+.imprint-container {
   padding: 24px 96px;
   width: 100%;
   max-width: 1440px;
@@ -13,5 +13,11 @@
 
   p {
     margin-bottom: 6px;
+  }
+}
+
+@media(max-width: 769px) {
+  .imprint-container {
+      padding: 24px 16px;
   }
 }

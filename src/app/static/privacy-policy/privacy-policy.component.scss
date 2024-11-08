@@ -14,3 +14,9 @@ h1, h2, h3, p {
 li {
     color: white;
 }
+
+@media(max-width: 769px) {
+    .privacy-policy-container {
+        padding: 24px 16px;
+    }
+}

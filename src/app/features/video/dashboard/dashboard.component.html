@@ -14,6 +14,8 @@
   <div class="curtain"></div>
 </div>
 
+<div class="curtain-bottom"></div>
+
 <div class="centered">
   <div class="main-container">
     @if (videoService.heroVideoData | async; as video) {
@@ -31,6 +33,7 @@
     }
 
     <div class="rows">
+      <div class="curtain-right"></div>
       <div class="row">
         <span class="subtitle">New on Videoflix</span>
         <div class="thumbnails">
@@ -61,9 +64,7 @@
           }
         </div>
       </div>
-      } }
-      
-      @if (videoService.dashboardData | async; as dashboardData) { @for
+      } } @if (videoService.dashboardData | async; as dashboardData) { @for
       (category of dashboardData.categories; track $index) {
       <div class="row">
         <span class="subtitle">{{ this.upperCase(category) }}</span>
@@ -80,8 +81,7 @@
         </div>
       </div>
       } }
+      <app-footer class="footer"></app-footer>
     </div>
   </div>
 </div>
-
-<app-footer class="footer"></app-footer>
