@@ -1,0 +1,1600 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>videoflix-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">videoflix-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  VideoPlayerComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/features/video/video-player/video-player.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-video-player</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="../components/VjsPlayerComponent.html" target="_self" >VjsPlayerComponent</a></code>
+                            <code>CommonModule</code>
+                            <code>RouterModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./video-player.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./video-player.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#baseUrl" >baseUrl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#container" >container</a>
+                            </li>
+                            <li>
+                                <a href="#playerWidth" >playerWidth</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#resizeTimeout" >resizeTimeout</a>
+                            </li>
+                            <li>
+                                <a href="#selectedVideoData" >selectedVideoData</a>
+                            </li>
+                            <li>
+                                <a href="#userHasWatched" >userHasWatched</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#videoPlayer" >videoPlayer</a>
+                            </li>
+                            <li>
+                                <a href="#videoResolution" >videoResolution</a>
+                            </li>
+                            <li>
+                                <a href="#videoService" >videoService</a>
+                            </li>
+                            <li>
+                                <a href="#videoUrl" >videoUrl</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#adjustPlayerSize" >adjustPlayerSize</a>
+                            </li>
+                            <li>
+                                <a href="#continueVideo" >continueVideo</a>
+                            </li>
+                            <li>
+                                <a href="#forward" >forward</a>
+                            </li>
+                            <li>
+                                <a href="#getVideoDataFromService" >getVideoDataFromService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#onResize" >onResize</a>
+                            </li>
+                            <li>
+                                <a href="#resetTimestamp" >resetTimestamp</a>
+                            </li>
+                            <li>
+                                <a href="#rewind" >rewind</a>
+                            </li>
+                            <li>
+                                <a href="#setInitialVideoResolution" >setInitialVideoResolution</a>
+                            </li>
+                            <li>
+                                <a href="#setUserHasWatched" >setUserHasWatched</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#setVideoResolution" >setVideoResolution</a>
+                            </li>
+                            <li>
+                                <a href="#subscribeVideoResolution" >subscribeVideoResolution</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#window:resize" >window:resize</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="window:resize"></a>
+                    <span class="name">
+                        <span ><b>window:resize</b></span>
+                        <a href="#window:resize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>window:resize()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function resizes the video player in case the user changes the size of the window.</p>
+</div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="adjustPlayerSize"></a>
+                    <span class="name">
+                        <span ><b>adjustPlayerSize</b></span>
+                        <a href="#adjustPlayerSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>adjustPlayerSize()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="165"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:165</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This fuction calculates the width and height of the player so it can be displayed as big as possible.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="continueVideo"></a>
+                    <span class="name">
+                        <span ><b>continueVideo</b></span>
+                        <a href="#continueVideo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>continueVideo()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function changes the variable userHasWatched to false. This is needed to undisplay the dialog for restart and continue.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="forward"></a>
+                    <span class="name">
+                        <span ><b>forward</b></span>
+                        <a href="#forward"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>forward()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="125"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:125</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function forwards the timestamp for 10s.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVideoDataFromService"></a>
+                    <span class="name">
+                        <span ><b>getVideoDataFromService</b></span>
+                        <a href="#getVideoDataFromService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVideoDataFromService()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function gets the video data from the video service.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function does some initializing tasks. It adjusts the players size, subscribes to video resolution observable, sets the initial video resolution based on the screen size, starts the loading of the video, gets the data from the service and sets the variable has watched.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onResize"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>onResize</b></span>
+                        <a href="#onResize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onResize()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;window:resize&#x27;)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function resizes the video player in case the user changes the size of the window.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetTimestamp"></a>
+                    <span class="name">
+                        <span ><b>resetTimestamp</b></span>
+                        <a href="#resetTimestamp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetTimestamp()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="104"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:104</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function function sets the timestamp to 0 in case the user wants to watch a video from anew.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rewind"></a>
+                    <span class="name">
+                        <span ><b>rewind</b></span>
+                        <a href="#rewind"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>rewind()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:132</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function rewinds the timestamp for 10s.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setInitialVideoResolution"></a>
+                    <span class="name">
+                        <span ><b>setInitialVideoResolution</b></span>
+                        <a href="#setInitialVideoResolution"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setInitialVideoResolution()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="58"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function sets the initial video resolution based on the current screen size.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setUserHasWatched"></a>
+                    <span class="name">
+                        <span ><b>setUserHasWatched</b></span>
+                        <a href="#setUserHasWatched"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setUserHasWatched()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function sets the variable userHasWatched to true in case there is a timestamp other than 0.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setVideoResolution"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>setVideoResolution</b></span>
+                        <a href="#setVideoResolution"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setVideoResolution(resolution: <a href="../undefineds/Resolutions.html" target="_self">Resolutions</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="140"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:140</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function changes the video resolution and loads the new data.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>resolution</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#Resolutions" target="_self" >Resolutions</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>number of type Resolutions</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subscribeVideoResolution"></a>
+                    <span class="name">
+                        <span ><b>subscribeVideoResolution</b></span>
+                        <a href="#subscribeVideoResolution"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>subscribeVideoResolution()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function subscribes to the observable videoResolution.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="baseUrl"></a>
+                    <span class="name">
+                        <span ><b>baseUrl</b></span>
+                        <a href="#baseUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.baseUrl</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="container"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>container</b></span>
+                        <a href="#container"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;container&#x27;, {static: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="playerWidth"></a>
+                    <span class="name">
+                        <span ><b>playerWidth</b></span>
+                        <a href="#playerWidth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;100%&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resizeTimeout"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>resizeTimeout</b></span>
+                        <a href="#resizeTimeout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedVideoData"></a>
+                    <span class="name">
+                        <span ><b>selectedVideoData</b></span>
+                        <a href="#selectedVideoData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/VideoModel.html" target="_self" >VideoModel</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    id: 0,
+    title: &#x27;&#x27;,
+    timestamp: 0,
+    hls_file: &#x27;&#x27;,
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userHasWatched"></a>
+                    <span class="name">
+                        <span ><b>userHasWatched</b></span>
+                        <a href="#userHasWatched"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="videoPlayer"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>videoPlayer</b></span>
+                        <a href="#videoPlayer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/VjsPlayerComponent.html" target="_self" >VjsPlayerComponent</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;videoPlayer&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="videoResolution"></a>
+                    <span class="name">
+                        <span ><b>videoResolution</b></span>
+                        <a href="#videoResolution"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#Resolutions" target="_self" >Resolutions</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>360</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="videoService"></a>
+                    <span class="name">
+                        <span ><b>videoService</b></span>
+                        <a href="#videoService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(VideoService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="videoUrl"></a>
+                    <span class="name">
+                        <span ><b>videoUrl</b></span>
+                        <a href="#videoUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/features/video/video-player/video-player.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  ViewChild,
+} from &#x27;@angular/core&#x27;;
+import { VjsPlayerComponent } from &#x27;./vjs-player/vjs-player.component&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+import { VideoService } from &#x27;../../../services/video.service&#x27;;
+import { environment } from &#x27;../../../../environments/environment&#x27;;
+import { take } from &#x27;rxjs&#x27;;
+import { VideoModel } from &#x27;../../../models/video.class&#x27;;
+import { Resolutions } from &#x27;../../../interfaces/resolutions&#x27;;
+
+@Component({
+  selector: &#x27;app-video-player&#x27;,
+  standalone: true,
+  imports: [VjsPlayerComponent, CommonModule, RouterModule],
+  templateUrl: &#x27;./video-player.component.html&#x27;,
+  styleUrl: &#x27;./video-player.component.scss&#x27;,
+})
+export class VideoPlayerComponent {
+  playerWidth: string &#x3D; &#x27;100%&#x27;;
+  videoService &#x3D; inject(VideoService);
+  baseUrl &#x3D; environment.baseUrl;
+
+  selectedVideoData: VideoModel &#x3D; {
+    id: 0,
+    title: &#x27;&#x27;,
+    timestamp: 0,
+    hls_file: &#x27;&#x27;,
+  };
+  videoUrl: string &#x3D; &#x27;&#x27;;
+  userHasWatched &#x3D; false;
+  videoResolution: Resolutions &#x3D; 360;
+  private resizeTimeout: any;
+
+  @ViewChild(&#x27;container&#x27;, { static: true }) container!: ElementRef;
+  @ViewChild(&#x27;videoPlayer&#x27;) videoPlayer!: VjsPlayerComponent;
+
+  /**
+   * This function does some initializing tasks. It adjusts the players size, subscribes to video resolution observable, sets the initial video resolution based on the screen size, starts the loading of the video, gets the data from the service and sets the variable has watched.
+   */
+  async ngOnInit() {
+    this.adjustPlayerSize();
+    this.subscribeVideoResolution();
+    this.setInitialVideoResolution();
+    await this.videoService.getVideo(this.videoResolution);
+    this.getVideoDataFromService();
+    this.setUserHasWatched();
+  }
+
+  /**
+   * This function sets the initial video resolution based on the current screen size.
+   */
+  setInitialVideoResolution() {
+    const screenWidth &#x3D; window.innerWidth;
+    if (screenWidth &gt; 1400) {
+      this.videoService.setVideoResolution(1080);
+    } else if (screenWidth &gt; 1000) {
+      this.videoService.setVideoResolution(720);
+    } else if (screenWidth &gt; 800) {
+      this.videoService.setVideoResolution(480);
+    } else {
+      this.videoService.setVideoResolution(360);
+    }
+  }
+
+  /**
+   * This function gets the video data from the video service.
+   */
+  getVideoDataFromService() {
+    this.videoService.selectedVideoData
+      .pipe(take(1))
+      .subscribe((selectedVideoData) &#x3D;&gt; {
+        this.selectedVideoData &#x3D; selectedVideoData;
+        this.videoUrl &#x3D; this.baseUrl + this.selectedVideoData.hls_file;
+      });
+  }
+
+  /**
+   * This function subscribes to the observable videoResolution.
+   */
+  subscribeVideoResolution() {
+    this.videoService.videoResolution.subscribe((videoResolution) &#x3D;&gt; {
+      this.videoResolution &#x3D; videoResolution;
+    });
+  }
+
+  /**
+   * This function sets the variable userHasWatched to true in case there is a timestamp other than 0.
+   */
+  setUserHasWatched() {
+    if (this.selectedVideoData.timestamp !&#x3D;&#x3D; 0) {
+      this.userHasWatched &#x3D; true;
+    }
+  }
+
+  /**
+   * This function function sets the timestamp to 0 in case the user wants to watch a video from anew.
+   */
+  resetTimestamp() {
+    this.videoService.storeVideoTimestampSessionStorage(0);
+    this.userHasWatched &#x3D; false;
+    setTimeout(() &#x3D;&gt; {
+      this.videoPlayer.playVideo();
+    }, 200);
+  }
+
+  /**
+   * This function changes the variable userHasWatched to false. This is needed to undisplay the dialog for restart and continue.
+   */
+  continueVideo() {
+    this.userHasWatched &#x3D; false;
+    setTimeout(() &#x3D;&gt; {
+      this.videoPlayer.playVideo();
+    }, 200);
+  }
+
+  /**
+   * This function forwards the timestamp for 10s.
+   */
+  forward() {
+    this.videoPlayer.changeTimestamp(10);
+  }
+
+  /**
+   * This function rewinds the timestamp for 10s.
+   */
+  rewind() {
+    this.videoPlayer.changeTimestamp(-10);
+  }
+
+  /**
+   * This function changes the video resolution and loads the new data.
+   * @param resolution number of type Resolutions
+   */
+  async setVideoResolution(resolution: Resolutions) {
+    this.videoService.setVideoResolution(resolution);
+    await this.videoService.getVideo(resolution);
+    this.getVideoDataFromService();
+    this.videoPlayer.reloadVideo(this.videoUrl);
+  }
+
+  /**
+   * This function resizes the video player in case the user changes the size of the window.
+   */
+  @HostListener(&#x27;window:resize&#x27;)
+  onResize() {
+    clearTimeout(this.resizeTimeout);
+
+    this.adjustPlayerSize();
+
+    this.resizeTimeout &#x3D; setTimeout(() &#x3D;&gt; {
+      this.setInitialVideoResolution();
+      this.setVideoResolution(this.videoResolution);
+    }, 200);
+  }
+
+  /**
+   * This fuction calculates the width and height of the player so it can be displayed as big as possible.
+   */
+  adjustPlayerSize() {
+    const containerWidth &#x3D; this.container.nativeElement.offsetWidth;
+    const containerHeight &#x3D; this.container.nativeElement.offsetHeight - 160;
+    const aspectRatio &#x3D; 16 / 9;
+
+    if (containerWidth / containerHeight &gt; aspectRatio) {
+      const newWidth &#x3D;
+        (aspectRatio / (containerWidth / containerHeight)) * 100 - 0.1;
+      this.playerWidth &#x3D; &#x60;${newWidth}%&#x60;;
+    } else {
+      this.playerWidth &#x3D; &#x27;100%&#x27;;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;video-container&quot; #container&gt;
+  &lt;div class&#x3D;&quot;header&quot;&gt;
+    &lt;div class&#x3D;&quot;header-desktop&quot;&gt;
+      &lt;img
+        src&#x3D;&quot;assets/icons/arrow_back.svg&quot;
+        alt&#x3D;&quot;&quot;
+        routerLink&#x3D;&quot;/dashboard&quot;
+        class&#x3D;&quot;cursor-pointer&quot;
+      /&gt;
+
+      &lt;div class&#x3D;&quot;resolution-buttons-container&quot;&gt;
+        &lt;button
+          class&#x3D;&quot;resolution-buttons&quot;
+          (click)&#x3D;&quot;setVideoResolution(360)&quot;
+          [ngClass]&#x3D;&quot;{ active: videoResolution &#x3D;&#x3D;&#x3D; 360 }&quot;
+        &gt;
+          Mobile
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;resolution-buttons&quot;
+          (click)&#x3D;&quot;setVideoResolution(480)&quot;
+          [ngClass]&#x3D;&quot;{ active: videoResolution &#x3D;&#x3D;&#x3D; 480 }&quot;
+        &gt;
+          SD
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;resolution-buttons&quot;
+          (click)&#x3D;&quot;setVideoResolution(720)&quot;
+          [ngClass]&#x3D;&quot;{ active: videoResolution &#x3D;&#x3D;&#x3D; 720 }&quot;
+        &gt;
+          HD
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;resolution-buttons&quot;
+          (click)&#x3D;&quot;setVideoResolution(1080)&quot;
+          [ngClass]&#x3D;&quot;{ active: videoResolution &#x3D;&#x3D;&#x3D; 1080 }&quot;
+        &gt;
+          UHD
+        &lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;img src&#x3D;&quot;assets/images/logo_image.svg&quot; alt&#x3D;&quot;&quot; /&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;resolution-buttons-container-mobile&quot;&gt;
+      &lt;button
+        class&#x3D;&quot;resolution-buttons&quot;
+        (click)&#x3D;&quot;setVideoResolution(360)&quot;
+        [ngClass]&#x3D;&quot;{ active: videoResolution &#x3D;&#x3D;&#x3D; 360 }&quot;
+      &gt;
+        Mobile
+      &lt;/button&gt;
+      &lt;button
+        class&#x3D;&quot;resolution-buttons&quot;
+        (click)&#x3D;&quot;setVideoResolution(480)&quot;
+        [ngClass]&#x3D;&quot;{ active: videoResolution &#x3D;&#x3D;&#x3D; 480 }&quot;
+      &gt;
+        SD
+      &lt;/button&gt;
+      &lt;button
+        class&#x3D;&quot;resolution-buttons&quot;
+        (click)&#x3D;&quot;setVideoResolution(720)&quot;
+        [ngClass]&#x3D;&quot;{ active: videoResolution &#x3D;&#x3D;&#x3D; 720 }&quot;
+      &gt;
+        HD
+      &lt;/button&gt;
+      &lt;button
+        class&#x3D;&quot;resolution-buttons&quot;
+        (click)&#x3D;&quot;setVideoResolution(1080)&quot;
+        [ngClass]&#x3D;&quot;{ active: videoResolution &#x3D;&#x3D;&#x3D; 1080 }&quot;
+      &gt;
+        UHD
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  @if (userHasWatched) {
+  &lt;div class&#x3D;&quot;restart-continue&quot;&gt;
+    &lt;button class&#x3D;&quot;standard-button&quot; (click)&#x3D;&quot;resetTimestamp()&quot;&gt;Restart&lt;/button&gt;
+    &lt;button class&#x3D;&quot;standard-button&quot; (click)&#x3D;&quot;continueVideo()&quot;&gt;Continue&lt;/button&gt;
+  &lt;/div&gt;
+  } @else{ @if (videoService.selectedVideoData | async; as video) { @switch
+  (videoUrl) {@case (&quot;&quot;) {
+  &lt;span class&#x3D;&quot;loading&quot;&gt;Loading&lt;/span&gt;
+  } @default {
+  &lt;app-vjs-player
+    [ngStyle]&#x3D;&quot;{ width: playerWidth }&quot;
+    #videoPlayer
+    class&#x3D;&quot;video-player&quot;
+    [options]&#x3D;&quot;{
+        fluid: true,
+        autoplay: false,
+        controls: true,
+        muted: false,
+        sources: [
+          { src: videoUrl, type: &#x27;application/x-mpegURL&#x27;, label: &#x27;SD&#x27; }
+        ],
+      }&quot;
+  &gt;&lt;/app-vjs-player&gt;
+  }}
+
+  &lt;div class&#x3D;&quot;footer&quot;&gt;
+    &lt;button class&#x3D;&quot;forward-rewind-button&quot; (click)&#x3D;&quot;rewind()&quot;&gt;
+      &lt;img src&#x3D;&quot;assets/icons/replay_10.svg&quot; alt&#x3D;&quot;&quot; /&gt;
+    &lt;/button&gt;
+    &lt;span class&#x3D;&quot;clip-title&quot;&gt;{{ video.title }}&lt;/span&gt;
+    &lt;button class&#x3D;&quot;forward-rewind-button&quot; (click)&#x3D;&quot;forward()&quot;&gt;
+      &lt;img src&#x3D;&quot;assets/icons/forward_10.svg&quot; alt&#x3D;&quot;&quot; /&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  }}
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="video-container" #container>  <div class="header">    <div class="header-desktop">      <img        src="assets/icons/arrow_back.svg"        alt=""        routerLink="/dashboard"        class="cursor-pointer"      />      <div class="resolution-buttons-container">        <button          class="resolution-buttons"          (click)="setVideoResolution(360)"          [ngClass]="{ active: videoResolution === 360 }"        >          Mobile        </button>        <button          class="resolution-buttons"          (click)="setVideoResolution(480)"          [ngClass]="{ active: videoResolution === 480 }"        >          SD        </button>        <button          class="resolution-buttons"          (click)="setVideoResolution(720)"          [ngClass]="{ active: videoResolution === 720 }"        >          HD        </button>        <button          class="resolution-buttons"          (click)="setVideoResolution(1080)"          [ngClass]="{ active: videoResolution === 1080 }"        >          UHD        </button>      </div>      <img src="assets/images/logo_image.svg" alt="" />    </div>    <div class="resolution-buttons-container-mobile">      <button        class="resolution-buttons"        (click)="setVideoResolution(360)"        [ngClass]="{ active: videoResolution === 360 }"      >        Mobile      </button>      <button        class="resolution-buttons"        (click)="setVideoResolution(480)"        [ngClass]="{ active: videoResolution === 480 }"      >        SD      </button>      <button        class="resolution-buttons"        (click)="setVideoResolution(720)"        [ngClass]="{ active: videoResolution === 720 }"      >        HD      </button>      <button        class="resolution-buttons"        (click)="setVideoResolution(1080)"        [ngClass]="{ active: videoResolution === 1080 }"      >        UHD      </button>    </div>  </div>  @if (userHasWatched) {  <div class="restart-continue">    <button class="standard-button" (click)="resetTimestamp()">Restart</button>    <button class="standard-button" (click)="continueVideo()">Continue</button>  </div>  } @else{ @if (videoService.selectedVideoData | async; as video) { @switch  (videoUrl) {@case ("") {  <span class="loading">Loading</span>  } @default {  <app-vjs-player    [ngStyle]="{ width: playerWidth }"    #videoPlayer    class="video-player"    [options]="{        fluid: true,        autoplay: false,        controls: true,        muted: false,        sources: [          { src: videoUrl, type: \'application/x-mpegURL\', label: \'SD\' }        ],      }"  ></app-vjs-player>  }}  <div class="footer">    <button class="forward-rewind-button" (click)="rewind()">      <img src="assets/icons/replay_10.svg" alt="" />    </button>    <span class="clip-title">{{ video.title }}</span>    <button class="forward-rewind-button" (click)="forward()">      <img src="assets/icons/forward_10.svg" alt="" />    </button>  </div>  }}</div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ErrorToastCTAComponent', 'selector': 'app-error-toast-cta'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeroComponent', 'selector': 'app-hero'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'VerificationComponent', 'selector': 'app-verification'},{'name': 'VideoPlayerComponent', 'selector': 'app-video-player'},{'name': 'VjsPlayerComponent', 'selector': 'app-vjs-player'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'VideoPlayerComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'VideoPlayerComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
