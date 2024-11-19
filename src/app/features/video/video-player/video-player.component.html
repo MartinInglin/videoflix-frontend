@@ -74,7 +74,7 @@
     </div>
   </div>
 
-  @if (userHasWatched) {
+  @if (showRestartConfirm) {
   <div class="restart-continue">
     <button class="standard-button" (click)="resetTimestamp()">Restart</button>
     <button class="standard-button" (click)="continueVideo()">Continue</button>

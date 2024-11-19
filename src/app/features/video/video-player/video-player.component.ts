@@ -34,7 +34,8 @@ export class VideoPlayerComponent {
     hls_file: '',
   };
   videoUrl: string = '';
-  userHasWatched = false;
+  showRestartConfirm = false;
+  isFirstLoad = true;
   videoResolution: Resolutions = 360;
   private resizeTimeout: any;
 
@@ -77,9 +78,7 @@ export class VideoPlayerComponent {
       .subscribe((selectedVideoData) => {
         this.selectedVideoData = selectedVideoData;
         this.videoUrl = this.baseUrl + this.selectedVideoData.hls_file;
-        console.log(selectedVideoData);
-
-        this.setUserHasWatched();
+        this.setShowResetConfirm();
       });
   }
 
@@ -93,11 +92,12 @@ export class VideoPlayerComponent {
   }
 
   /**
-   * This function sets the variable userHasWatched to true in case there is a timestamp other than 0.
+   * This function sets the variable showRestartConfirm to true in case there is a timestamp other than 0.
    */
-  setUserHasWatched() {
-    if (this.selectedVideoData.timestamp !== 0) {
-      this.userHasWatched = true;
+  setShowResetConfirm() {
+    if (this.selectedVideoData.timestamp !== 0 && this.isFirstLoad) {
+      this.showRestartConfirm = true;
+      this.isFirstLoad = false;
     }
   }
 
@@ -106,17 +106,17 @@ export class VideoPlayerComponent {
    */
   resetTimestamp() {
     this.videoService.storeVideoTimestampSessionStorage(0);
-    this.userHasWatched = false;
+    this.showRestartConfirm = false;
     setTimeout(() => {
       this.videoPlayer.playVideo();
     }, 200);
   }
 
   /**
-   * This function changes the variable userHasWatched to false. This is needed to undisplay the dialog for restart and continue.
+   * This function changes the variable showRestartConfirm to false. This is needed to undisplay the dialog for restart and continue.
    */
   continueVideo() {
-    this.userHasWatched = false;
+    this.showRestartConfirm = false;
     setTimeout(() => {
       this.videoPlayer.playVideo();
     }, 200);

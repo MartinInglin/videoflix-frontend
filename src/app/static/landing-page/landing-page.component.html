@@ -7,15 +7,25 @@
 </div>
 
 <div class="main-container">
-  <h1 [@hideShowTrigger]="state">Movies, TV shows, and more</h1>
-  <h3 [@hideShowTrigger]="state">Watch whenever you want wherever you want</h3>
-  <h4 [@hideShowTrigger]="state">
-    Enter your email to create or restart your subcription.
-  </h4>
-  <div class="sign-up" [@hideShowTrigger]="state">
-    <input type="email" class="input-email" placeholder="Email Address" [(ngModel)]="inputData"/>
-    <button class="standard-button" (click)="redirectLogin()">Sign Up ></button>
+  <div class="flex-1">
+    <h1 [@hideShowTrigger]="state">Movies, TV shows, and more</h1>
+    <h3 [@hideShowTrigger]="state">
+      Watch whenever you want wherever you want
+    </h3>
+    <h4 [@hideShowTrigger]="state">
+      Enter your email to create or restart your subcription.
+    </h4>
+    <div class="sign-up" [@hideShowTrigger]="state">
+      <input
+        type="email"
+        class="input-email"
+        placeholder="Email Address"
+        [(ngModel)]="inputData"
+      />
+      <button class="standard-button" (click)="redirectLogin()">
+        Sign Up >
+      </button>
+    </div>
   </div>
+  <app-footer class="footer"></app-footer>
 </div>
-
-<app-footer class="footer"></app-footer>

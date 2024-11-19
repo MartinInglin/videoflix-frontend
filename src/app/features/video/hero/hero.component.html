@@ -17,9 +17,6 @@
     @if (videoService.heroVideoData | async; as video) {
     <div class="hero">
       <div class="title" [@hideShowTrigger]="state">{{ video.title }}</div>
-      <p [@hideShowTrigger]="state">
-        {{ video.description }}
-      </p>
       <button
         class="standard-button"
         [@hideShowTrigger]="state"
@@ -27,6 +24,9 @@
       >
         <img src="assets/icons/play_arrow.svg" alt="" /> Play
       </button>
+      <p [@hideShowTrigger]="state">
+        {{ video.description }}
+      </p>
     </div>
     }
   </div>

@@ -72,6 +72,9 @@
 }
 
 .footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -121,5 +124,10 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
+  }
+
+  .restart-continue {
+    padding: 20px;
+    gap: 16px;
   }
 }
