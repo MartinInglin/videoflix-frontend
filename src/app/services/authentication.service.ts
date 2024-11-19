@@ -96,11 +96,11 @@ export class AuthenticationService {
 
     try {
       await lastValueFrom(this.http.post(url, body));
-      this.toastService.showToast('Email has been sent.');
+      this.toastService.showToast('An email has been sent to this address.');
       return true;
     } catch (error) {
       this.toastService.showToast(
-        'An error occured. Please contact our support.'
+        'An email has been sent to this address.'
       );
       return false;
     }
@@ -117,11 +117,11 @@ export class AuthenticationService {
 
     try {
       await lastValueFrom(this.http.post(url, body));
-      this.toastService.showToast('Email has been sent.');
+      this.toastService.showToast('An email has been sent to this address.');
       return true;
     } catch (error) {
       this.toastService.showToast(
-        'An error occured. Please contact our support.'
+        'An email has been sent to this address.'
       );
       return false;
     }

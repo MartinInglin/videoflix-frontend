@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { VjsPlayerComponent } from './vjs-player/vjs-player.component';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { VideoService } from '../../../services/video.service';
 import { environment } from '../../../../environments/environment';
 import { take } from 'rxjs';
@@ -24,6 +24,7 @@ import { Resolutions } from '../../../interfaces/resolutions';
 export class VideoPlayerComponent {
   playerWidth: string = '100%';
   videoService = inject(VideoService);
+  router = inject(Router);
   baseUrl = environment.baseUrl;
 
   selectedVideoData: VideoModel = {
@@ -49,7 +50,6 @@ export class VideoPlayerComponent {
     this.setInitialVideoResolution();
     await this.videoService.getVideo(this.videoResolution);
     this.getVideoDataFromService();
-    this.setUserHasWatched();
   }
 
   /**
@@ -77,6 +77,9 @@ export class VideoPlayerComponent {
       .subscribe((selectedVideoData) => {
         this.selectedVideoData = selectedVideoData;
         this.videoUrl = this.baseUrl + this.selectedVideoData.hls_file;
+        console.log(selectedVideoData);
+
+        this.setUserHasWatched();
       });
   }
 
@@ -174,5 +177,35 @@ export class VideoPlayerComponent {
     } else {
       this.playerWidth = '100%';
     }
+  }
+
+  /**
+   * This function deletes the session storage and redirects the user to the dashboard.
+   */
+  redirectToDashboard() {
+    this.deleteSessionStorage();
+    this.redirect();
+  }
+
+  /**
+   * This function deletes the session storage.
+   */
+  deleteSessionStorage() {
+    sessionStorage.removeItem('timestamp');
+    sessionStorage.removeItem('selectedVideoId');
+  }
+
+  /**
+   * This function redirects the user to the dashboard.
+   */
+  redirect() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  /**
+   * This function deletes the session storage in case the user leaves the page.
+   */
+  ngOnDestroy(): void {
+    this.deleteSessionStorage();
   }
 }

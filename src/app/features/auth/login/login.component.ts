@@ -74,6 +74,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     rememberMe: new FormControl(false),
   });
   submitted = false;
+  buttonSubmitDisabled = false;
   passwordVisible = false;
   state = 'hidden-right';
   backgroundState = 'background-fade-out';
@@ -143,10 +144,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
     if (this.form.invalid) {
       return;
     }
-
+    this.buttonSubmitDisabled = true;
     let success = await this.authenticationService.login(email, password);
     if (success) {
       this.redirect('/dashboard');
+    } else {
+      this.buttonSubmitDisabled = false;
     }
   }
 

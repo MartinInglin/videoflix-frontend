@@ -1,4 +1,9 @@
-import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { HeaderComponent } from '../../../shared/header/header.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import {
@@ -161,5 +166,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
    */
   redirect(target: string) {
     this.router.navigate([`${target}`]);
+  }
+
+  /**
+   * This function sets the overflow of the body to auto in case the user leaves the page.
+   */
+  ngOnDestroy(): void {
+    document.body.style.overflow = 'auto';
   }
 }

@@ -68,6 +68,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     confirmPassword: new FormControl(''),
   });
   submitted = false;
+  buttonSubmitDisabled = false;
   passwordVisible: boolean = false;
   state = 'hidden-top';
   backgroundState = 'background-fade-out';
@@ -131,8 +132,14 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     if (this.form.invalid) {
       return;
     }
-    await this.authenticationService.signUp(email, password);
-    this.redirect('/login');
+    this.buttonSubmitDisabled = true;
+    let success = await this.authenticationService.signUp(email, password);
+    if (success) {
+      this.redirect('/login');
+    } else {
+      this.buttonSubmitDisabled = false;
+    }
+
   }
 
   /**

@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    baseUrl: 'https://api.vidoeflix.ch'
+    baseUrl: 'https://videoflix-backend.martin-inglin.ch'
 };

@@ -108,6 +108,7 @@ export class VideoService {
       );
       this._selectedVideoData.next(response);
       this.storeVideoTimestampSessionStorage(response.timestamp);
+      this.storeVideoIdSessionStorage()
     } catch (error) {
       this.toastService.showToast('Getting video data failed');
     }

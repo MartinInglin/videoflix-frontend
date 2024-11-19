@@ -91,6 +91,7 @@
           type="submit"
           class="standard-button"
           [ngClass]="{ 'button-disabled': formEmpty }"
+          [disabled]="buttonSubmitDisabled"
         >
           Get Started
         </button>

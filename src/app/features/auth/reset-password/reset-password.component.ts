@@ -64,6 +64,7 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
     confirmPassword: new FormControl(''),
   });
   submitted = false;
+  buttonSubmitDisabled = false;
   passwordVisible = false;
   state = 'hidden-left';
   backgroundState = 'background-fade-out';
@@ -118,9 +119,17 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
     if (this.form.invalid) {
       return;
     }
+    this.buttonSubmitDisabled = true;
     if (token) {
-      await this.authenticationService.resetPassword(password, token);
-      this.redirect('/login');
+      let success = await this.authenticationService.resetPassword(
+        password,
+        token
+      );
+      if (success) {
+        this.redirect('/login');
+      } else {
+        this.buttonSubmitDisabled = false;
+      }
     }
   }
 

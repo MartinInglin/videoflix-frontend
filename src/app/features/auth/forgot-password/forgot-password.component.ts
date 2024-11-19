@@ -65,6 +65,7 @@ export class ForgotPasswordComponent implements OnInit, AfterViewInit {
     email: new FormControl(''),
   });
   submitted = false;
+  buttonSubmitDisabled = false;
   state = 'hidden-bottom';
   backgroundState = 'background-fade-out';
 
@@ -112,8 +113,15 @@ export class ForgotPasswordComponent implements OnInit, AfterViewInit {
     if (this.form.invalid) {
       return;
     }
-    await this.authenticationService.sendResetPasswordEmail(email);
-    this.redirect('/login');
+    this.buttonSubmitDisabled = true;
+    let success = await this.authenticationService.sendResetPasswordEmail(
+      email
+    );
+    if (success) {
+      this.redirect('/login');
+    } else {
+      this.buttonSubmitDisabled = false;
+    }
   }
 
   /**
